@@ -13,6 +13,8 @@ function Game(props) {
 
 	const WORD = 'KOLAY'
 
+	const { setModalStatus } = props
+
 	const propsToBeSent = {
 		isGameOver,
 		setGameOver,
@@ -25,33 +27,46 @@ function Game(props) {
 		WORD
 	}
 
+	const openModalAfterSomeTime = (ms) => {
+		setTimeout(() => {
+			setModalStatus(true)
+		}, ms)
+	}
+
 	useEffect(() => {
 		console.log("game oluştu")
 
 		const handleKey = (event) => {
+
+			if(isGameSuccess || isGameOver){
+				return
+			}
 
 			// kelime kontrol edilmeli
 			if(event.key === 'Enter'){
 				if(activeGuess.length < 5){
 					return
 				}
+				
+				if(guessedWords.length == 6){
+					return
+				}
 
-				console.log(checkWord(activeGuess, WORD))
+				console.log(`game success : ${isGameSuccess}`)
 
 				if(activeGuess === WORD){
 					setGameSuccess(true)
 					setGameOver(true)
+					openModalAfterSomeTime(1500)
 				}
 
-				console.log(activeGuess)
 				setGuessedWords([...guessedWords, activeGuess])
 				setActiveGuess('')
 
 				if([...guessedWords, activeGuess].length === 6){
 					setGameOver(true)
+					openModalAfterSomeTime(1500)
 				}
-
-				console.log(guessedWords)
 				return	
 			}
 
@@ -71,7 +86,6 @@ function Game(props) {
 			}
 
 			setActiveGuess(activeGuess => activeGuess + event.key.toUpperCase())
-			console.log(event.key)
 		}
 
 		document.addEventListener('keydown', handleKey)

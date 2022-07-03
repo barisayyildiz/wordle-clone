@@ -20,7 +20,9 @@ function App() {
 				setStatisticsModalOpen={setStatisticsModalOpen}
 			/>
 
-			<Game/>
+			<Game
+				setModalStatus={setStatisticsModalOpen}
+			/>
 
 			{
 				isStatisticsModalOpen && (
