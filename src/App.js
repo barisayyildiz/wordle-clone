@@ -4,6 +4,7 @@ import './App.scss';
 import Header from "./Header"
 import Modal from "./Modal"
 import Statistics from "./Statistics"
+import Game from "./Game"
 
 
 
@@ -18,6 +19,8 @@ function App() {
 				isStatisticsModalOpen={isStatisticsModalOpen}
 				setStatisticsModalOpen={setStatisticsModalOpen}
 			/>
+
+			<Game/>
 
 			{
 				isStatisticsModalOpen && (

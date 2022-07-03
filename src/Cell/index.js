@@ -1,8 +1,13 @@
 import React from 'react'
+import './style.scss'
 
-function Cell() {
+function Cell(props) {
+	const { value } = props
+	const text = value !== undefined ? value : ''
 	return (
-		<div>Cell</div>
+		<div className='cell'>
+			{text}
+		</div>
 	)
 }
 

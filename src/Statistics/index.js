@@ -17,21 +17,21 @@ function Statistics({
 				margin:'30px 0px'
 			}}
 		>
-			<div class="statistics-container">
-				<div class="statistic-number">{played}</div>
-				<div class="statistic-label">Played</div>
+			<div className="statistics-container">
+				<div className="statistic-number">{played}</div>
+				<div className="statistic-label">Played</div>
 			</div>
-			<div class="statistics-container">
-				<div class="statistic-number">{winPer}</div>
-				<div class="statistic-label">Win %</div>
+			<div className="statistics-container">
+				<div className="statistic-number">{winPer}</div>
+				<div className="statistic-label">Win %</div>
 			</div>
-			<div class="statistics-container">
-				<div class="statistic-number">{curStreak}</div>
-				<div class="statistic-label">Current Streak</div>
+			<div className="statistics-container">
+				<div className="statistic-number">{curStreak}</div>
+				<div className="statistic-label">Current Streak</div>
 			</div>
-			<div class="statistics-container">
-				<div class="statistic-number">{maxStreak}</div>
-				<div class="statistic-label">Max Streak</div>
+			<div className="statistics-container">
+				<div className="statistic-number">{maxStreak}</div>
+				<div className="statistic-label">Max Streak</div>
 			</div>
 		</div>
 	)
