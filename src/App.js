@@ -6,9 +6,6 @@ import Modal from "./Modal"
 import Statistics from "./Statistics"
 import Game from "./Game"
 
-
-
-
 function App() {
 
 	const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(false)
@@ -20,11 +17,9 @@ function App() {
 				isStatisticsModalOpen={isStatisticsModalOpen}
 				setStatisticsModalOpen={setStatisticsModalOpen}
 			/>
-
 			<Game
 				setModalStatus={setStatisticsModalOpen}
 			/>
-
 			{
 				isStatisticsModalOpen && (
 					<Modal
@@ -42,7 +37,6 @@ function App() {
 					</Modal>
 				)
 			}
-
     </div>
   );
 }

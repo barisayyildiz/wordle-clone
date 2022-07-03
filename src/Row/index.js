@@ -6,14 +6,8 @@ import Cell from "../Cell"
 import { checkWord } from "../Game/util"
 
 function Row(props) {
-
-	const [string, setString] = useState("")
-
 	const {
-		isGameOver,
-		setGameOver,
 		guessedWords,
-		setGuessedWords,
 		index,
 		value,
 		WORD

@@ -3,29 +3,7 @@ import './style.scss'
 
 function Cell(props) {
 	const { value, finished, index, color, continues, notFound, success } = props
-
-	const text = value !== undefined ? value : ''
-
-	console.log(
-		`finished : ${finished}
-		continues : ${continues}
-		notFound : ${notFound}
-		success : ${success}
-		`
-	)
-
-	const renderClasses = () => {
-		let classes = 'cell'
-		return classes
-	}
-
-	const animationList = {
-		'finished':{
-			animationName : '+',
-			animationDuration : '500ms'
-		}
-	}
-
+	
 	const generateAnimation = () => {
 		if(finished){
 			return `Rotate 600ms ease-out ${index * 200}ms`
@@ -42,14 +20,15 @@ function Cell(props) {
 		backgroundColor : color,
 		color : finished ? 'white' : 'black',
 		border:finished && `1px solid ${color}`,
-		// ...generateAnimation()
 		animation : generateAnimation()
 	}
+
+	const text = value !== undefined ? value : ''
 
 	return (
 		<div 
 			style={style}
-			className={renderClasses()}
+			className='cell'
 		>
 			{text}
 		</div>

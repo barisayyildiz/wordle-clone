@@ -47,22 +47,16 @@ function Game(props) {
 				if(activeGuess.length < 5){
 					return
 				}
-				
 				if(guessedWords.length == 6){
 					return
 				}
-
-				console.log(`game success : ${isGameSuccess}`)
-
 				if(activeGuess === WORD){
 					setGameSuccess(true)
 					setGameOver(true)
 					openModalAfterSomeTime(1500)
 				}
-
 				setGuessedWords([...guessedWords, activeGuess])
 				setActiveGuess('')
-
 				if([...guessedWords, activeGuess].length === 6){
 					setGameOver(true)
 					openModalAfterSomeTime(1500)
@@ -84,7 +78,7 @@ function Game(props) {
 			if(!pattern.test(event.key) || event.key.length !== 1){
 				return
 			}
-
+		
 			setActiveGuess(activeGuess => activeGuess + event.key.toUpperCase())
 		}
 
@@ -100,7 +94,6 @@ function Game(props) {
 
 			{/* flash messages */}
 			<Message visible={isGameOver && !isGameSuccess} text={WORD} />
-
 			{
 				Array.from(Array(6).keys()).map(key => {
 					return <Row
