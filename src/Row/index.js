@@ -3,6 +3,8 @@ import './style.scss'
 
 import Cell from "../Cell"
 
+import { checkWord } from "../Game/util"
+
 function Row(props) {
 
 	const [string, setString] = useState("")
@@ -13,9 +15,13 @@ function Row(props) {
 		guessedWords,
 		setGuessedWords,
 		index,
-		value
+		value,
+		WORD
 	} = props
 	const isActive = guessedWords.length === index
+
+	const colors = index < guessedWords.length ? checkWord(value, WORD) : []
+	const finished = index < guessedWords.length
 
 	return(
 		<div className="game_row">
@@ -23,8 +29,13 @@ function Row(props) {
 				Array.from(Array(5).keys()).map(key => {
 					return(
 						<Cell
+							style={{
+								backgroundColor:colors[key],
+								color:finished ? 'white' : 'black'
+							}}
 							value={value[key]}
 							key={key}
+							finished={finished}
 						/>
 					)
 				})

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import "./style.scss"
 
+import { checkWord } from "./util"
+
 import Row from "../Row"
 
 function Game(props) {
@@ -8,13 +10,16 @@ function Game(props) {
 	const [guessedWords, setGuessedWords] = useState([])
 	const [activeGuess, setActiveGuess] = useState('')
 
+	const WORD = 'KOLAY'
+
 	const propsToBeSent = {
 		isGameOver,
 		setGameOver,
 		guessedWords,
 		setGuessedWords,
 		activeGuess,
-		setActiveGuess
+		setActiveGuess,
+		WORD
 	}
 
 	useEffect(() => {
@@ -27,6 +32,9 @@ function Game(props) {
 				if(activeGuess.length < 5){
 					return
 				}
+
+				console.log(checkWord(activeGuess, WORD))
+
 				console.log(activeGuess)
 				setGuessedWords([...guessedWords, activeGuess])
 				setActiveGuess('')
@@ -49,7 +57,7 @@ function Game(props) {
 				return
 			}
 
-			setActiveGuess(activeGuess => activeGuess + event.key)
+			setActiveGuess(activeGuess => activeGuess + event.key.toUpperCase())
 			console.log(event.key)
 		}
 
@@ -71,13 +79,6 @@ function Game(props) {
 						{...propsToBeSent}
 					/>
 				})
-			}
-			{
-				activeGuess
-			}
-			<br/>
-			{
-				guessedWords.join(",")
 			}
 		</div>
 	)
