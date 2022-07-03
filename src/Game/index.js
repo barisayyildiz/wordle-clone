@@ -7,6 +7,7 @@ import Row from "../Row"
 
 function Game(props) {
 	const [isGameOver, setGameOver] = useState(false)
+	const [isGameSuccess, setGameSuccess] = useState(false)
 	const [guessedWords, setGuessedWords] = useState([])
 	const [activeGuess, setActiveGuess] = useState('')
 
@@ -19,6 +20,8 @@ function Game(props) {
 		setGuessedWords,
 		activeGuess,
 		setActiveGuess,
+		isGameSuccess,
+		setGameSuccess,
 		WORD
 	}
 
@@ -35,9 +38,19 @@ function Game(props) {
 
 				console.log(checkWord(activeGuess, WORD))
 
+				if(activeGuess === WORD){
+					setGameSuccess(true)
+					setGameOver(true)
+				}
+
 				console.log(activeGuess)
 				setGuessedWords([...guessedWords, activeGuess])
 				setActiveGuess('')
+
+				if([...guessedWords, activeGuess].length === 6){
+					setGameOver(true)
+				}
+
 				console.log(guessedWords)
 				return	
 			}
@@ -70,6 +83,8 @@ function Game(props) {
 
 	return(
 		<div className="game_container">
+			<Message text={WORD} visible={isGameOver && !isGameSuccess}
+			/>
 			{
 				Array.from(Array(6).keys()).map(key => {
 					return <Row
@@ -81,6 +96,23 @@ function Game(props) {
 				})
 			}
 		</div>
+	)
+}
+
+function Message({text, visible, activeGuess}){
+	const style = {
+		fontSize: '120%',
+		fontWeight: '700',
+		backgroundColor : '#212121',
+		color : 'white',
+		padding:'15px',
+		borderRadius : '10px',
+		opacity: visible ? 1 : 0
+	}	
+	return(
+		<p style={style}>
+			{text}
+		</p>
 	)
 }
 
