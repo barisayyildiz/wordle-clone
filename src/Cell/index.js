@@ -28,7 +28,7 @@ function Cell(props) {
 
 	const generateAnimation = () => {
 		if(finished){
-			return `Rotate 600ms ease-out ${index * 100}ms`
+			return `Rotate 600ms ease-out ${index * 200}ms`
 		}else if(continues){
 			return `PopIn 200ms ease-in`
 		}else if(notFound){

@@ -1,10 +1,11 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import './App.scss';
 
 import Header from "./Header"
 import Modal from "./Modal"
 import Statistics from "./Statistics"
 import Game from "./Game"
+
 
 
 
@@ -41,7 +42,6 @@ function App() {
 					</Modal>
 				)
 			}
-
 
     </div>
   );

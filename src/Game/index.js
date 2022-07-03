@@ -97,8 +97,10 @@ function Game(props) {
 
 	return(
 		<div className="game_container">
-			<Message text={WORD} visible={isGameOver && !isGameSuccess}
-			/>
+
+			{/* flash messages */}
+			<Message visible={isGameOver && !isGameSuccess} text={WORD} />
+
 			{
 				Array.from(Array(6).keys()).map(key => {
 					return <Row
@@ -113,7 +115,7 @@ function Game(props) {
 	)
 }
 
-function Message({text, visible, activeGuess}){
+function Message({ text, visible }){
 	const style = {
 		fontSize: '120%',
 		fontWeight: '700',
@@ -121,7 +123,7 @@ function Message({text, visible, activeGuess}){
 		color : 'white',
 		padding:'15px',
 		borderRadius : '10px',
-		opacity: visible ? 1 : 0
+		opacity: visible ? '1' : '0'
 	}	
 	return(
 		<p style={style}>
