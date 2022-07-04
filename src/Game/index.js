@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import "./style.scss"
 
+import { ToastContainer, Flip, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
+
 import { checkWord } from "./util"
 
 import Row from "../Row"
@@ -36,6 +39,20 @@ function Game(props) {
 		}, ms)
 	}
 
+	const generateToast = (text, duration) => {
+		return toast.dark(text, {
+			position: "top-center",
+			autoClose: duration,
+			hideProgressBar: true,
+			closeOnClick: false,
+			pauseOnHover: true,
+			draggable: true,
+			progress: undefined,
+			closeButton: false,
+			transition: Flip
+			});
+	}
+
 	useEffect(() => {
 		console.log("game oluştu")
 
@@ -49,13 +66,14 @@ function Game(props) {
 			// kelime kontrol edilmeli
 			if(event.key === 'Enter'){
 				if(activeGuess.length < 5){
-					setNotEnough(true)
+					generateToast('Yetersiz harf', 1000)
 					return
 				}
 				if(guessedWords.length == 6){
 					return
 				}
 				if(activeGuess === WORD){
+					generateToast('Tebrikler', 2000)
 					setGameSuccess(true)
 					setGameOver(true)
 					openModalAfterSomeTime(4000)
@@ -64,6 +82,7 @@ function Game(props) {
 				setActiveGuess('')
 
 				if([...guessedWords, activeGuess].length === 6){
+					generateToast(WORD, false)
 					setGameOver(true)
 					openModalAfterSomeTime(4000)
 				}
@@ -98,8 +117,23 @@ function Game(props) {
 	return(
 		<div className="game_container">
 
-			{/* flash messages */}
-			<Message visible={isGameOver && !isGameSuccess} text={WORD} />
+			<ToastContainer
+				position="top-center"
+				autoClose={1000}
+				hideProgressBar
+				newestOnTop={false}
+				closeOnClick={false}
+				rtl={false}
+				pauseOnFocusLoss
+				draggable
+				pauseOnHover
+				style={{
+					margin:'100px 0px',
+					fontSize: '120%',
+					width: '200px'
+				}}
+			/>
+			
 			{
 				Array.from(Array(6).keys()).map(key => {
 					return <Row
@@ -111,24 +145,9 @@ function Game(props) {
 					/>
 				})
 			}
-		</div>
-	)
-}
 
-function Message({ text, visible }){
-	const style = {
-		fontSize: '120%',
-		fontWeight: '700',
-		backgroundColor : '#212121',
-		color : 'white',
-		padding:'15px',
-		borderRadius : '10px',
-		opacity: visible ? '1' : '0'
-	}	
-	return(
-		<p style={style}>
-			{text}
-		</p>
+
+		</div>
 	)
 }
 
