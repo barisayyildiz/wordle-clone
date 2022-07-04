@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './style.scss'
 
 import Cell from "../Cell"
@@ -13,6 +13,8 @@ function Row(props) {
 		WORD
 	} = props
 	const isActive = guessedWords.length === index
+
+	const ref = useRef(null)
 
 	const colors = index < guessedWords.length ? checkWord(value, WORD) : []
 	const finished = index < guessedWords.length
@@ -31,7 +33,7 @@ function Row(props) {
 							index={key}
 							finished={finished}
 							continues={isActive && props.activeGuess.length > key}
-							notFound={false}
+							// notFound={false}
 							success={success}
 						/>
 					)

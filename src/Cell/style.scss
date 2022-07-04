@@ -9,6 +9,24 @@
 	font-size: 175%;
 	font-weight: 700;
 	user-select: none;
+	transition: all 0.2s ease;
+
+	&.finished{
+		animation : Rotate 600ms ease-out;
+	}
+
+	&.notFound{
+		animation : Shake 600ms ease-in;
+	}
+
+	&.continues{
+		animation: PopIn 200ms ease-in;
+	}
+
+	&.success{
+		animation: Bounce 600ms ease-in;
+	}
+
 }
 
 // finished
@@ -26,6 +44,7 @@
 	}
 	100%{
 		transform: rotateX(0);
+		color: white;
 	}
 }
 

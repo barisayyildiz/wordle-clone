@@ -10,6 +10,7 @@ function Game(props) {
 	const [isGameSuccess, setGameSuccess] = useState(false)
 	const [guessedWords, setGuessedWords] = useState([])
 	const [activeGuess, setActiveGuess] = useState('')
+	const [isNotEnough, setNotEnough] = useState(false)
 
 	const WORD = 'KOLAY'
 
@@ -24,6 +25,8 @@ function Game(props) {
 		setActiveGuess,
 		isGameSuccess,
 		setGameSuccess,
+		isNotEnough,
+		setNotEnough,
 		WORD
 	}
 
@@ -38,6 +41,7 @@ function Game(props) {
 
 		const handleKey = (event) => {
 
+			// oyun çoktan bitmişse
 			if(isGameSuccess || isGameOver){
 				return
 			}
@@ -45,6 +49,7 @@ function Game(props) {
 			// kelime kontrol edilmeli
 			if(event.key === 'Enter'){
 				if(activeGuess.length < 5){
+					setNotEnough(true)
 					return
 				}
 				if(guessedWords.length == 6){
@@ -53,13 +58,14 @@ function Game(props) {
 				if(activeGuess === WORD){
 					setGameSuccess(true)
 					setGameOver(true)
-					openModalAfterSomeTime(1500)
+					openModalAfterSomeTime(4000)
 				}
 				setGuessedWords([...guessedWords, activeGuess])
 				setActiveGuess('')
+
 				if([...guessedWords, activeGuess].length === 6){
 					setGameOver(true)
-					openModalAfterSomeTime(1500)
+					openModalAfterSomeTime(4000)
 				}
 				return	
 			}
@@ -100,6 +106,7 @@ function Game(props) {
 						key={key}
 						index={key}
 						value={guessedWords[key] !== undefined ? guessedWords[key] : (key == guessedWords.length ? activeGuess : '')}
+						notFound={key == guessedWords.length && isNotEnough}
 						{...propsToBeSent}
 					/>
 				})
