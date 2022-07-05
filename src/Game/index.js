@@ -1,43 +1,34 @@
-import React, { useState, useEffect } from 'react'
-import "./style.scss"
+import { useState, useMemo } from "react";
 
 import { ToastContainer, Flip, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 
-import { checkWord } from "./util"
+import './style.scss'
 
-import Row from "../Row"
 
-function Game(props) {
-	const [isGameOver, setGameOver] = useState(false)
-	const [isGameSuccess, setGameSuccess] = useState(false)
-	const [guessedWords, setGuessedWords] = useState([])
-	const [activeGuess, setActiveGuess] = useState('')
-	const [isNotEnough, setNotEnough] = useState(false)
+import Board from "../Board";
+import Keyboard from "../Keyboard";
 
-	const WORD = 'KOLAY'
+import { checkWord } from "../lib/util";
 
-	const { setModalStatus } = props
+export default function Game(props) {
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [guessedArray, setGuessedArray] = useState([]);
+  const [activeGuess, setActiveGuess] = useState("");
 
-	const propsToBeSent = {
-		isGameOver,
-		setGameOver,
-		guessedWords,
-		setGuessedWords,
-		activeGuess,
-		setActiveGuess,
-		isGameSuccess,
-		setGameSuccess,
-		isNotEnough,
-		setNotEnough,
-		WORD
-	}
+  // colors
+  const [boardColors, setBoardColors] = useState([]);
 
-	const openModalAfterSomeTime = (ms) => {
-		setTimeout(() => {
-			setModalStatus(true)
-		}, ms)
-	}
+  // for keyboard
+  const [guessedLetters, setGuessedLetters] = useState({});
+
+  // animation states
+  const [failAnimation, setFailAnimation] = useState(false);
+  const [finishedAnimation, setFinishedAnimation] = useState(false);
+  const [successAnimation, setSuccessAnimation] = useState(false);
+  const [insertAnimation, setInsertAnimation] = useState(false);
+
+  const WORD = "KOLAY";
 
 	const generateToast = (text, duration) => {
 		return toast.dark(text, {
@@ -53,70 +44,109 @@ function Game(props) {
 			});
 	}
 
-	useEffect(() => {
-		console.log("game oluştu")
+  useMemo(() => {
+    let colors = [];
+    for (let i = 0; i < guessedArray.length; i++) {
+      colors.push(boardColors[i]);
+    }
+    colors.push(checkWord(activeGuess, WORD));
+    setBoardColors(colors);
+  }, [activeGuess, WORD]);
 
-		const handleKey = (event) => {
+	const adjustKeyboardStatus = () => {
+    let tempObj = {};
+    let colors = boardColors[boardColors.length - 1];
 
-			// oyun çoktan bitmişse
-			if(isGameSuccess || isGameOver){
-				return
-			}
+    for (let i = 0; i < colors.length; i++) {
+      if (guessedLetters[activeGuess[i]] === undefined) {
+        tempObj[activeGuess[i]] = colors[i];
+      } else if (
+        guessedLetters[activeGuess[i]] === "present" &&
+        colors[i] === "correct"
+      ) {
+        tempObj[activeGuess[i]] = colors[i];
+      }
+    }
+    setGuessedLetters({ ...guessedLetters, ...tempObj });
+  };
 
-			// kelime kontrol edilmeli
-			if(event.key === 'Enter'){
-				if(activeGuess.length < 5){
-					generateToast('Yetersiz harf', 1000)
-					return
-				}
-				if(guessedWords.length == 6){
-					return
-				}
-				if(activeGuess === WORD){
-					generateToast('Tebrikler', 2000)
-					setGameSuccess(true)
-					setGameOver(true)
-					openModalAfterSomeTime(4000)
-				}
-				setGuessedWords([...guessedWords, activeGuess])
-				setActiveGuess('')
+  const handleEnterKey = (event) => {
+    if (activeGuess.length !== 5) {
+      setFailAnimation(true);
+			generateToast('Yetersiz harf', 1000)
+      return;
+    }
 
-				if([...guessedWords, activeGuess].length === 6){
-					generateToast(WORD, false)
-					setGameOver(true)
-					openModalAfterSomeTime(4000)
-				}
-				return	
-			}
+    if (activeGuess === WORD) {
+      setIsGameOver(true);
+      setSuccessAnimation(true);
+			generateToast('Tebrikler', 2000)
+			setTimeout(() => {
+				props.setModalStatus(true)
+			},3000)
+    }
 
-			if(event.key === 'Backspace'){
-				setActiveGuess(activeGuess => activeGuess.slice(0,activeGuess.length - 1))
-				return
-			}
+    // keyboard renkleri burada düzenlenecek
+    adjustKeyboardStatus();
 
-			if(activeGuess.length === 5){
-				return
-			}
+    setFinishedAnimation(true);
 
-			const pattern = /[a-z]|[A-Z]|ı|ş|ö|ç|ğ|ü/
-			// invalid char
-			if(!pattern.test(event.key) || event.key.length !== 1){
-				return
-			}
+    setGuessedArray([...guessedArray, activeGuess]);
+    setActiveGuess("");
+
+		if([...guessedArray, activeGuess].length === 6){
+			generateToast(WORD, false)
+		}
 		
-			setActiveGuess(activeGuess => activeGuess + event.key.toUpperCase())
-		}
+		return;
+  };
 
-		document.addEventListener('keydown', handleKey)
-		return () => {
-			console.log("event listener removed")
-			return document.removeEventListener('keydown', handleKey)
-		}
-	}, [activeGuess])
+  const handleLetterKey = (letter) => {
+    const pattern = /[a-z]|[A-Z]|ü|ş|ç|ö|ı/;
 
-	return(
-		<div className="game_container">
+    // backspace
+    if (letter === "Backspace") {
+      setActiveGuess((activeGuess) =>
+        activeGuess.slice(0, activeGuess.length - 1)
+      );
+      return;
+    }
 
+    // if the activeGuess is already at length 5
+    if (activeGuess.length === 5) {
+      return;
+    }
+
+    // if the pattern mathces
+    if (pattern.test(letter) && letter.length === 1) {
+      setInsertAnimation(true);
+      setActiveGuess((activeGuess) => activeGuess + letter.toUpperCase());
+    }
+  };
+
+  const handleKey = (event) => {
+    if (event.key === "Enter") {
+      handleEnterKey(event);
+      return;
+    }
+    handleLetterKey(event.key);
+  };
+
+  const handleButton = (event) => {
+    let btntype = event.target.getAttribute("btntype");
+    event.target.blur();
+
+    if (btntype === "enter") {
+      handleEnterKey(event);
+    } else if (btntype === "backspace") {
+      handleLetterKey("Backspace");
+    } else if (btntype === "letter") {
+      handleLetterKey(event.target.innerText);
+    }
+  };
+
+  return (
+    <div className="game">
 			<ToastContainer
 				position="top-center"
 				autoClose={1000}
@@ -133,22 +163,38 @@ function Game(props) {
 					width: '200px'
 				}}
 			/>
-			
-			{
-				Array.from(Array(6).keys()).map(key => {
-					return <Row
-						key={key}
-						index={key}
-						value={guessedWords[key] !== undefined ? guessedWords[key] : (key == guessedWords.length ? activeGuess : '')}
-						notFound={key == guessedWords.length && isNotEnough}
-						{...propsToBeSent}
-					/>
-				})
-			}
 
-
-		</div>
-	)
+      <Board
+        isGameOver={isGameOver}
+        setIsGameOver={setIsGameOver}
+        guessedArray={guessedArray}
+        setGuessedArray={setGuessedArray}
+        activeGuess={activeGuess}
+        setActiveGuess={setActiveGuess}
+        WORD={WORD}
+        failAnimation={failAnimation}
+        setFailAnimation={setFailAnimation}
+        finishedAnimation={finishedAnimation}
+        setFinishedAnimation={setFinishedAnimation}
+        successAnimation={successAnimation}
+        setSuccessAnimation={setSuccessAnimation}
+        insertAnimation={insertAnimation}
+        setInsertAnimation={setInsertAnimation}
+        handleEnterKey={handleEnterKey}
+        handleKey={handleKey}
+        boardColors={boardColors}
+        setBoardColors={setBoardColors}
+      />
+      <Keyboard
+        guessedLetters={guessedLetters}
+        setGuessedLetters={setGuessedLetters}
+        guessedArray={guessedArray}
+        activeGuess={activeGuess}
+        setActiveGuess={setActiveGuess}
+        handleEnterKey={handleEnterKey}
+        handleKey={handleKey}
+        handleButton={handleButton}
+      />
+    </div>
+  );
 }
-
-export default Game

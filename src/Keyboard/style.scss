@@ -1,0 +1,39 @@
+.keyboard_row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn {
+  padding: 0px 10px;
+  margin: 3px;
+  background-color: #d3d6da;
+  border: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  height: 56px;
+  font-family: inherit;
+  cursor: pointer;
+  min-width: 45px;
+  border-radius: 4px;
+  transition: all 0.4s ease;
+}
+
+.btn svg {
+  padding: 0px;
+}
+
+.btn[status="correct"] {
+  background-color: #6aaa64;
+  color: white;
+}
+
+.btn[status="present"] {
+  background-color: #c9b458;
+  color: white;
+}
+
+.btn[status="absent"] {
+  background-color: #787c7e;
+  color: white;
+}

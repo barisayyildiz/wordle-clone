@@ -6,7 +6,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-size: 175%;
+	font-size: 200%;
 	font-weight: 700;
 	user-select: none;
 	transition: all 0.2s ease;
@@ -107,3 +107,117 @@
 		opacity: 1;
 	}
 }
+
+.cell.flipin {
+  animation: FlipIn 600ms ease-out forwards;
+}
+
+.cell.flipout {
+  animation: FlipOut 600ms ease-out forwards;
+}
+
+.cell.popin {
+  animation: PopIn 100ms ease-in;
+}
+
+.cell.shake {
+  animation: Shake 600ms ease-in;
+}
+
+.cell.bounce {
+  animation: Bounce 600ms ease-in;
+}
+
+@keyframes FlipIn {
+  0% {
+    transform: rotateX(0);
+  }
+
+  100% {
+    transform: rotateX(-90deg);
+  }
+}
+
+@keyframes FlipOut {
+  0% {
+    transform: rotateX(-90deg);
+  }
+
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@keyframes Rotate {
+  0% {
+    transform: rotateX(0);
+  }
+  33% {
+    transform: rotateX(-90deg);
+  }
+  67% {
+    transform: rotateX(-90deg);
+  }
+  100% {
+    transform: rotateX(0);
+  }
+}
+
+@keyframes Bounce {
+  0%,
+  20% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-30px);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  60% {
+    transform: translateY(-15px);
+  }
+  80% {
+    transform: translateY(2px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes Shake {
+  10%,
+  90% {
+    transform: translateX(-1px);
+  }
+
+  20%,
+  80% {
+    transform: translateX(2px);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translateX(-4px);
+  }
+
+  40%,
+  60% {
+    transform: translateX(4px);
+  }
+}
+
+@keyframes PopIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+
+  40% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+

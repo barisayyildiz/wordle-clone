@@ -1,46 +1,29 @@
-import React, { useState, useEffect, useRef } from 'react'
-import './style.scss'
+import Cell from "../Cell";
 
-import Cell from "../Cell"
+export default function Row(props) {
+  const { value } = props;
 
-import { checkWord } from "../Game/util"
+  const style = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center"
+  };
 
-function Row(props) {
-	const {
-		guessedWords,
-		index,
-		value,
-		WORD
-	} = props
-	const isActive = guessedWords.length === index
-
-	const ref = useRef(null)
-
-	const colors = index < guessedWords.length ? checkWord(value, WORD) : []
-	const finished = index < guessedWords.length
-	const success = value === WORD
-
-	return(
-		<div className="game_row">
-			{
-				Array.from(Array(5).keys()).map(key => {
-					return(
-						<Cell
-							{...props}
-							color={colors[key]}
-							value={value[key]}
-							key={key}
-							index={key}
-							finished={finished}
-							continues={isActive && props.activeGuess.length > key}
-							// notFound={false}
-							success={success}
-						/>
-					)
-				})
-			}			
-		</div>
-	)
+  return (
+    <div style={style} className="row">
+      {Array.from(Array(5).keys()).map((key) => {
+        return (
+          <Cell
+            key={key}
+            cellIndex={key}
+            rowIndex={props.rowIndex}
+            text={value[key] ? value[key] : ""}
+            //color={props.color != undefined ? props.color[key] : "white"}
+            color={props.color}
+            {...props}
+          />
+        );
+      })}
+    </div>
+  );
 }
-
-export default Row
