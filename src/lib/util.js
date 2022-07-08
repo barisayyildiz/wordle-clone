@@ -1,3 +1,12 @@
+export const saveWordsToLocal = async function(){
+	const { words } = await import("./constants")
+	console.log(localStorage.setItem('possibleWords', words))
+}
+
+export const getWordsFromLocal = function(){
+	console.log(localStorage.getItem('possibleWords').split("\n"))
+}
+
 export const checkWord = function (guess, word) {
   const green = [];
   let temp = "";

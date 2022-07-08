@@ -7,6 +7,8 @@ import Statistics from "./Statistics";
 import Game from "./Game";
 import Bar from "./Bar";
 
+import { saveWordsToLocal, getWordsFromLocal } from "./lib/util"
+
 function App() {
   const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(true);
 

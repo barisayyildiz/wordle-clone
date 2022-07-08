@@ -18,7 +18,7 @@ export default function Bar(props) {
       <div className="guess-distribution-content">
         {[1, 2, 3, 4, 5, 6].map((key) => {
           return (
-            <div className="guess-distribution-content-row">
+            <div key={key} className="guess-distribution-content-row">
               <div>{key}</div>
               <div
                 style={generateWidth(distribution[key - 1])}
