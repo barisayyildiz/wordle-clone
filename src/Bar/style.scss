@@ -13,12 +13,16 @@
   gap: 10px;
   margin: 5px 0px;
 
-
   .guess-bar{
     background-color: #aaaaaa;
     color: white;
     padding: 5px 8px;
     min-width: 20px;
+
+    &.active{
+      background-color: #6AAA64;
+    }
+
   }
 }
 

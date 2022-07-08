@@ -1,7 +1,7 @@
 import "./style.scss";
 
 export default function Bar(props) {
-  const { distribution } = props;
+  const { distribution, active } = props;
 
   const biggest = Math.max(...distribution);
 
@@ -22,7 +22,7 @@ export default function Bar(props) {
               <div>{key}</div>
               <div
                 style={generateWidth(distribution[key - 1])}
-                className="guess-bar"
+                className={`guess-bar ${active === key && 'active'}`}
               >
                 {distribution[key - 1]}
               </div>
