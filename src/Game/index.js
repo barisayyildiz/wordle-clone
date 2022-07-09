@@ -20,6 +20,14 @@ import {
   selectGame
 } from "../reducers/gameSlice"
 
+import {
+  incrementPlay,
+  incrementWin,
+  updateDistribution,
+  setActive,
+  selectStats,
+} from "../reducers/statsSlice"
+
 import Board from "../Board";
 import Keyboard from "../Keyboard";
 
@@ -46,6 +54,15 @@ export default function Game(props) {
     numberOfGuesses,
     onNthGuess
   } = useSelector(selectGame)
+
+  const {
+    played,
+    win,
+    curStreak,
+    maxStreak,
+    distribution,
+    active,
+  } = useSelector(selectStats)
 
 	const generateToast = (text, duration) => {
 		return toast.dark(text, {
@@ -74,7 +91,6 @@ export default function Game(props) {
     }
     colors.push(checkWord(activeGuess, WORD));
     dispatch(setBoardColors(colors))
-    // setBoardColors(colors);
   }, [activeGuess, WORD]);
 
 	const adjustKeyboardStatus = () => {
@@ -102,9 +118,15 @@ export default function Game(props) {
     }
 
     if (activeGuess === WORD) {
+      const number = distribution[guessedArray.length]
+      console.log(number)
+
       dispatch(setIsGameOver(true))
       setSuccessAnimation(true);
 			generateToast('Tebrikler', 2000)
+      dispatch(incrementPlay())
+      dispatch(incrementWin())
+      dispatch(setActive(guessedArray.length + 1))
 			setTimeout(() => {
         dispatch(toggle())
 			},3000)

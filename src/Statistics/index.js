@@ -1,12 +1,15 @@
 import React from 'react'
 import './style.scss'
 
-function Statistics({
-	played,
-	winPer,
-	curStreak,
-	maxStreak
-}) {
+import { useDispatch, useSelector } from "react-redux"
+import {
+	selectStats  
+} from "../reducers/statsSlice"
+
+function Statistics() {
+
+  const { played, win, curStreak, maxStreak } = useSelector(selectStats)
+
 	return (
 		<div id="statistics"
 			style={{
@@ -22,7 +25,7 @@ function Statistics({
 				<div className="statistic-label">Played</div>
 			</div>
 			<div className="statistics-container">
-				<div className="statistic-number">{winPer}</div>
+				<div className="statistic-number">{(win / played) * 100}</div>
 				<div className="statistic-label">Win %</div>
 			</div>
 			<div className="statistics-container">

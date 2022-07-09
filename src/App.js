@@ -33,11 +33,8 @@ function App() {
           closeModal={setStatisticsModalOpen}
           setStatisticsModalOpen={setStatisticsModalOpen}
         >
-          <Statistics played={0} winPer={0} curStreak={0} maxStreak={0} />
-          <Bar 
-            distribution={[1, 0, 0, 0, 0, 0]}
-            active={1} 
-          />
+          <Statistics />
+          <Bar />
         </Modal>
       )}
     </div>

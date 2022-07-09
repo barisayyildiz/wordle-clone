@@ -1,7 +1,18 @@
 import "./style.scss";
 
+import { useDispatch, useSelector } from "react-redux"
+import {
+  incrementPlay,
+  incrementWin,
+  selectStats
+} from "../reducers/statsSlice"
+
+
 export default function Bar(props) {
-  const { distribution, active } = props;
+  // const { distribution, active } = props;
+
+  const { distribution, active, played, win, curStreak, maxStreak } = useSelector(selectStats)
+  console.log(played, win, curStreak, maxStreak)
 
   const biggest = Math.max(...distribution);
 
