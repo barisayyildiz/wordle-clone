@@ -1,8 +1,20 @@
 import Backspace from "../svgs/Backspace";
 import "./style.scss";
 
+import { useSelector, useDispatch } from "react-redux"
+import { 
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+  selectGame
+} from "../reducers/gameSlice"
+
 export default function Keyboard(props) {
-  const { guessedLetters, setActiveGuess, handleButton } = props;
+  // const { guessedLetters, setActiveGuess, handleButton } = props;
+  const { setActiveGuess, handleButton } = props
+
+  const { guessedLetters } = useSelector(selectGame)
 
   const firstRow = ["E", "R", "T", "Y", "U", "I", "O", "P", "Ğ", "Ü"];
   const secondRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ş", "İ"];

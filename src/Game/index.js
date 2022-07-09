@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { ToastContainer, Flip, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
 import './style.scss'
@@ -10,20 +10,23 @@ import {
   selectModalStatus
 } from "../reducers/modalSlice"
 
+import { selectWord } from "../reducers/wordSlice"
+
+import { 
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+  selectGame
+} from "../reducers/gameSlice"
+
 import Board from "../Board";
 import Keyboard from "../Keyboard";
+
 import { checkWord } from "../lib/util";
 
 export default function Game(props) {
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [guessedArray, setGuessedArray] = useState([]);
   const [activeGuess, setActiveGuess] = useState("");
-
-  // colors
-  const [boardColors, setBoardColors] = useState([]);
-
-  // for keyboard
-  const [guessedLetters, setGuessedLetters] = useState({});
 
   // animation states
   const [failAnimation, setFailAnimation] = useState(false);
@@ -32,9 +35,17 @@ export default function Game(props) {
   const [insertAnimation, setInsertAnimation] = useState(false);
 
   // redux
-  const { visible } = useSelector(selectModalStatus);
+  const dispatch = useDispatch()
 
-  const WORD = "KOLAY";
+  const { selectedWord : WORD } = useSelector(selectWord)
+  const {
+    guessedArray,
+    boardColors,
+    guessedLetters,
+    isGameOver,
+    numberOfGuesses,
+    onNthGuess
+  } = useSelector(selectGame)
 
 	const generateToast = (text, duration) => {
 		return toast.dark(text, {
@@ -50,13 +61,20 @@ export default function Game(props) {
 			});
 	}
 
+  useEffect(() => {
+    if(isGameOver && !guessedArray.includes(WORD)){
+      generateToast(WORD, false)
+    }
+  }, [])
+
   useMemo(() => {
     let colors = [];
     for (let i = 0; i < guessedArray.length; i++) {
       colors.push(boardColors[i]);
     }
     colors.push(checkWord(activeGuess, WORD));
-    setBoardColors(colors);
+    dispatch(setBoardColors(colors))
+    // setBoardColors(colors);
   }, [activeGuess, WORD]);
 
 	const adjustKeyboardStatus = () => {
@@ -73,7 +91,7 @@ export default function Game(props) {
         tempObj[activeGuess[i]] = colors[i];
       }
     }
-    setGuessedLetters({ ...guessedLetters, ...tempObj });
+    dispatch(setGuessedLetters({ ...guessedLetters, ...tempObj }))
   };
 
   const handleEnterKey = (event) => {
@@ -84,12 +102,11 @@ export default function Game(props) {
     }
 
     if (activeGuess === WORD) {
-      setIsGameOver(true);
+      dispatch(setIsGameOver(true))
       setSuccessAnimation(true);
 			generateToast('Tebrikler', 2000)
 			setTimeout(() => {
-				// useDispatch(toggle())
-        props.setModalStatus(true)
+        dispatch(toggle())
 			},3000)
     }
 
@@ -98,7 +115,7 @@ export default function Game(props) {
 
     setFinishedAnimation(true);
 
-    setGuessedArray([...guessedArray, activeGuess]);
+    dispatch(setGuessedArray([...guessedArray, activeGuess]))
     setActiveGuess("");
 
 		if([...guessedArray, activeGuess].length === 6){
@@ -132,6 +149,9 @@ export default function Game(props) {
   };
 
   const handleKey = (event) => {
+    if(isGameOver){
+      return
+    }
     if (event.key === "Enter") {
       handleEnterKey(event);
       return;
@@ -140,6 +160,10 @@ export default function Game(props) {
   };
 
   const handleButton = (event) => {
+    if(isGameOver){
+      return
+    }
+    
     let btntype = event.target.getAttribute("btntype");
     event.target.blur();
 
@@ -172,13 +196,8 @@ export default function Game(props) {
 			/>
 
       <Board
-        isGameOver={isGameOver}
-        setIsGameOver={setIsGameOver}
-        guessedArray={guessedArray}
-        setGuessedArray={setGuessedArray}
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}
-        WORD={WORD}
         failAnimation={failAnimation}
         setFailAnimation={setFailAnimation}
         finishedAnimation={finishedAnimation}
@@ -189,13 +208,8 @@ export default function Game(props) {
         setInsertAnimation={setInsertAnimation}
         handleEnterKey={handleEnterKey}
         handleKey={handleKey}
-        boardColors={boardColors}
-        setBoardColors={setBoardColors}
       />
       <Keyboard
-        guessedLetters={guessedLetters}
-        setGuessedLetters={setGuessedLetters}
-        guessedArray={guessedArray}
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}
         handleEnterKey={handleEnterKey}

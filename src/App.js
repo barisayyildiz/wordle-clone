@@ -13,9 +13,7 @@ import {
   selectModalStatus,
 } from "./reducers/modalSlice"
 
-import {
-  selectWord
-} from "./reducers/wordSlice"
+import { selectWord } from "./reducers/wordSlice"
 
 function App() {
   const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(true);

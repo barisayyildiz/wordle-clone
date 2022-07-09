@@ -3,8 +3,25 @@ import Row from "../Row";
 
 import './style.scss'
 
+import { useSelector, useDispatch } from "react-redux"
+import { 
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+  selectGame
+} from "../reducers/gameSlice"
+
 export default function Board(props) {
-  const { guessedArray, activeGuess, handleKey } = props;
+  const { activeGuess, handleKey } = props;
+
+  const { guessedArray } = useSelector(selectGame)
+
+  const {
+    boardColors
+  } = useSelector(selectGame)
+
+  const gameStates = useSelector(selectGame)
 
   useEffect(() => {
     document.addEventListener("keydown", handleKey);
@@ -28,7 +45,6 @@ export default function Board(props) {
             }
             key={key}
             rowIndex={key}
-            color={props.boardColors[key]}
             {...props}
           />
         );

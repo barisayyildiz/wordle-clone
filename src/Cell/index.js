@@ -1,15 +1,26 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 import './style.scss'
+
+import { useSelector, useDispatch } from "react-redux"
+import { 
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+  selectGame
+} from "../reducers/gameSlice"
 
 export default function Cell(props) {
   const { text } = props;
 
   const ref = useRef(null);
 
+  const { boardColors, guessedArray } = useSelector(selectGame)
+
   let mappedColors = [];
-  if (props.color !== undefined) {
-    mappedColors = props.color.map((status) => {
+  if (boardColors[props.rowIndex] !== undefined) {
+    mappedColors = boardColors[props.rowIndex].map((status) => {
       if (status === "correct") {
         return "#6AAA64";
       } else if (status === "present") {
@@ -20,9 +31,16 @@ export default function Cell(props) {
     });
   }
 
+  useEffect(() => {
+    if(props.rowIndex < guessedArray.length){
+      ref.current.style.backgroundColor = mappedColors[props.cellIndex]
+      ref.current.style.color = 'white'
+    }
+  },[])
+
   const generateClasses = () => {
     if (
-      props.rowIndex === props.guessedArray.length - 1 &&
+      props.rowIndex === guessedArray.length - 1 &&
       props.finishedAnimation
     ) {
       // SORUN BURADA!!!
@@ -31,14 +49,14 @@ export default function Cell(props) {
     }
 
     if (
-      props.rowIndex === props.guessedArray.length &&
+      props.rowIndex === guessedArray.length &&
       props.insertAnimation &&
       props.cellIndex === props.activeGuess.length - 1
     ) {
       return "cell popin";
     }
 
-    if (props.rowIndex === props.guessedArray.length && props.failAnimation) {
+    if (props.rowIndex === guessedArray.length && props.failAnimation) {
       return "cell shake";
     }
 

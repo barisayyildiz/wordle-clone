@@ -1,7 +1,18 @@
 import Cell from "../Cell";
 
+import { useSelector, useDispatch } from "react-redux"
+import { 
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+  selectGame
+} from "../reducers/gameSlice"
+
 export default function Row(props) {
   const { value } = props;
+
+  const { boardColors } = useSelector(selectGame)
 
   const style = {
     display: "flex",
@@ -18,8 +29,6 @@ export default function Row(props) {
             cellIndex={key}
             rowIndex={props.rowIndex}
             text={value[key] ? value[key] : ""}
-            //color={props.color != undefined ? props.color[key] : "white"}
-            color={props.color}
             {...props}
           />
         );
