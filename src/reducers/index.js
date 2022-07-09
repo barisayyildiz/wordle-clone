@@ -8,17 +8,20 @@ import modalReducer from "./modalSlice"
 import wordReducer from "./wordSlice"
 import timeReducer from "./timeSlice"
 import gameReducer from "./gameSlice"
+import statsReducer from "./statsSlice"
 
 const reducers = combineReducers({
   modal: modalReducer,
   word: wordReducer,
   time: timeReducer,
-  game: gameReducer
+  game: gameReducer,
+  stats: statsReducer
 });
 
 const persistConfig = {
   key: 'root',
-  storage
+  storage,
+  blacklist: ['modal']
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers);

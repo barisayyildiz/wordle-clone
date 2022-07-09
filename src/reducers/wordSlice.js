@@ -28,7 +28,7 @@ export const wordSlice = createSlice({
   }
 })
 
-export const { changeSelection } = wordSlice
+export const { changeSelection } = wordSlice.actions
 export const selectWord = (state) => state.word
 export default wordSlice.reducer
 

@@ -26,7 +26,7 @@ export const timeSlice = createSlice({
   }
 })
 
-export const { changeDay } = timeSlice
+export const { changeDay } = timeSlice.actions
 export const selectTime = (state) => state.time
 export default timeSlice.reducer
 

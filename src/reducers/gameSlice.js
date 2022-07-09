@@ -28,7 +28,7 @@ export const gameSlice = createSlice({
   }
 })
 
-export const { updateBoard } = gameSlice
+export const { updateBoard } = gameSlice.actions
 export const selectBoard = (state) => state.game
 export default gameSlice.reducer
 
