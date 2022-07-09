@@ -25,7 +25,7 @@ function Statistics() {
 				<div className="statistic-label">Played</div>
 			</div>
 			<div className="statistics-container">
-				<div className="statistic-number">{(win / played) * 100}</div>
+				<div className="statistic-number">{played !== 0 ? (win / played) * 100 : 0}</div>
 				<div className="statistic-label">Win %</div>
 			</div>
 			<div className="statistics-container">

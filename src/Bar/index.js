@@ -9,10 +9,8 @@ import {
 
 
 export default function Bar(props) {
-  // const { distribution, active } = props;
 
   const { distribution, active, played, win, curStreak, maxStreak } = useSelector(selectStats)
-  console.log(played, win, curStreak, maxStreak)
 
   const biggest = Math.max(...distribution);
 

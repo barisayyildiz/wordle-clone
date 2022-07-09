@@ -119,8 +119,6 @@ export default function Game(props) {
 
     if (activeGuess === WORD) {
       const number = distribution[guessedArray.length]
-      console.log(number)
-
       dispatch(setIsGameOver(true))
       setSuccessAnimation(true);
 			generateToast('Tebrikler', 2000)
