@@ -1,14 +1,17 @@
 import { useState, useMemo } from "react";
-
 import { ToastContainer, Flip, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
-
 import './style.scss'
 
+// redux
+import { useDispatch, useSelector } from "react-redux"
+import {
+  toggle,
+  selectModalStatus
+} from "../reducers/modalSlice"
 
 import Board from "../Board";
 import Keyboard from "../Keyboard";
-
 import { checkWord } from "../lib/util";
 
 export default function Game(props) {
@@ -27,6 +30,9 @@ export default function Game(props) {
   const [finishedAnimation, setFinishedAnimation] = useState(false);
   const [successAnimation, setSuccessAnimation] = useState(false);
   const [insertAnimation, setInsertAnimation] = useState(false);
+
+  // redux
+  const { visible } = useSelector(selectModalStatus);
 
   const WORD = "KOLAY";
 
@@ -82,7 +88,8 @@ export default function Game(props) {
       setSuccessAnimation(true);
 			generateToast('Tebrikler', 2000)
 			setTimeout(() => {
-				props.setModalStatus(true)
+				// useDispatch(toggle())
+        props.setModalStatus(true)
 			},3000)
     }
 

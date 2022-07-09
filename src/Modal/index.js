@@ -1,10 +1,17 @@
 import React, { useEffect, useRef } from "react";
 import "./style.scss";
 
+import { toggle } from "../reducers/modalSlice"
+import {
+  useDispatch
+} from "react-redux"
+
 function Modal(props) {
   const { width, minHeight, title, closeModal } = props;
 
   const ref = useRef(null);
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -15,7 +22,7 @@ function Modal(props) {
 
   const handleClickOutside = (event) => {
     if (ref.current) {
-      console.log(ref.current.contains(event.target));
+      //console.log(ref.current.contains(event.target));
     }
     // closeModal(false)
   };
@@ -33,7 +40,7 @@ function Modal(props) {
         <h1>{title}</h1>
         <div>
           <svg
-            onClick={() => closeModal(false)}
+            onClick={() => dispatch(toggle())}
             id="statistic_modal_close"
             xmlns="http://www.w3.org/2000/svg"
             height="20"
