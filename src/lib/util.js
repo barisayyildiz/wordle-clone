@@ -15,6 +15,7 @@ export const dayHasChanged = function () {
 
 export const selectAWord = function () {
   const wordsList = words.split("\n");
+  console.log("wqeweq");
   return wordsList[Math.floor(Math.random() * wordsList.length)];
 };
 

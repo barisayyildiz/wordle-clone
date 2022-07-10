@@ -166,7 +166,9 @@ export default function Game(props) {
     // if the pattern mathces
     if (pattern.test(letter) && letter.length === 1) {
       setInsertAnimation(true);
-      setActiveGuess((activeGuess) => activeGuess + letter.toUpperCase());
+      setActiveGuess(
+        (activeGuess) => activeGuess + letter.toLocaleUpperCase("TR")
+      );
     }
   };
 
