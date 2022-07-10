@@ -8,6 +8,11 @@
 
   &.active {
     opacity: 1;
+
+    .restart-button {
+      cursor: pointer;
+      pointer-events: all;
+    }
   }
 
   .restart-button {
@@ -15,6 +20,6 @@
     border: none;
     border-radius: 4px;
     background-color: "#d3d6d";
-    cursor: pointer;
+    pointer-events: none;
   }
 }

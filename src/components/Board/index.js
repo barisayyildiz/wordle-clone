@@ -15,7 +15,7 @@ import {
 export default function Board(props) {
   const { activeGuess, handleKey } = props;
 
-  const { guessedArray } = useSelector(selectGame);
+  const { guessedArray, isGameOver } = useSelector(selectGame);
 
   const { boardColors } = useSelector(selectGame);
 
@@ -24,7 +24,7 @@ export default function Board(props) {
   useEffect(() => {
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [activeGuess]);
+  }, [isGameOver, activeGuess]);
 
   return (
     <div className="board">

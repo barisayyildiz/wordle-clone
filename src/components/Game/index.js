@@ -74,7 +74,7 @@ export default function Game(props) {
   };
 
   useEffect(() => {
-    if (isGameOver && !guessedArray.includes(WORD)) {
+    if (isGameOver && !isGameWon) {
       generateToast(WORD, false);
     }
   }, []);

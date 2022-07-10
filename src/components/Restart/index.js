@@ -1,5 +1,6 @@
 import React from "react";
 import "./style.scss";
+import { toast } from "react-toastify";
 
 import { useDispatch, useSelector } from "react-redux";
 import { resetGame, setIsGameOver, selectGame } from "../../reducers/gameSlice";
@@ -9,10 +10,12 @@ function Restart() {
   const { isGameOver } = useSelector(selectGame);
   const dispatch = useDispatch();
 
-  const clickHandler = () => {
+  const clickHandler = (e) => {
+    e.target.blur();
+
     dispatch(resetGame());
     dispatch(resetWord());
-    dispatch(setIsGameOver(false));
+    toast.dismiss();
     document.querySelectorAll(".cell").forEach((cell) => {
       cell.style.backgroundColor = "white";
       cell.style.color = "black";
