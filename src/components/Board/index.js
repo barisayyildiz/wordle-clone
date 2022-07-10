@@ -10,10 +10,12 @@ import {
   setBoardColors,
   setGuessedLetters,
   selectGame
-} from "../reducers/gameSlice"
+} from "../../reducers/gameSlice"
 
 export default function Board(props) {
   const { activeGuess, handleKey } = props;
+
+  console.log(`board, activeguess : ${activeGuess}`)
 
   const { guessedArray } = useSelector(selectGame)
 

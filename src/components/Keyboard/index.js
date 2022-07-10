@@ -1,4 +1,4 @@
-import Backspace from "../svgs/Backspace";
+import Backspace from "../../svgs/Backspace";
 import "./style.scss";
 
 import { useSelector, useDispatch } from "react-redux"
@@ -8,7 +8,7 @@ import {
   setBoardColors,
   setGuessedLetters,
   selectGame
-} from "../reducers/gameSlice"
+} from "../../reducers/gameSlice"
 
 export default function Keyboard(props) {
   // const { guessedLetters, setActiveGuess, handleButton } = props;

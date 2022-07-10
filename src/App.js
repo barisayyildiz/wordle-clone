@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.scss";
 
-import Header from "./Header";
-import Modal from "./Modal";
-import Statistics from "./Statistics";
-import Game from "./Game";
-import Bar from "./Bar";
+import Header from "./components/Header";
+import Modal from "./components/Modal";
+import Statistics from "./components/Statistics";
+import Game from "./components/Game";
+import Bar from "./components/Bar";
 
 import { useSelector, useDispatch } from  "react-redux"
 import {

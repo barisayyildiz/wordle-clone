@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux"
 import {
   toggle,
   selectModalStatus
-} from "../reducers/modalSlice"
+} from "../../reducers/modalSlice"
 
-import { selectWord } from "../reducers/wordSlice"
+import { selectWord } from "../../reducers/wordSlice"
 
 import { 
   setGuessedArray,
@@ -18,7 +18,7 @@ import {
   setBoardColors,
   setGuessedLetters,
   selectGame
-} from "../reducers/gameSlice"
+} from "../../reducers/gameSlice"
 
 import {
   incrementPlay,
@@ -26,15 +26,17 @@ import {
   updateDistribution,
   setActive,
   selectStats,
-} from "../reducers/statsSlice"
+} from "../../reducers/statsSlice"
 
 import Board from "../Board";
 import Keyboard from "../Keyboard";
 
-import { checkWord, inWordList } from "../lib/util";
+import { checkWord, inWordList } from "../../lib/util";
 
 export default function Game(props) {
   const [activeGuess, setActiveGuess] = useState("");
+
+  console.log(`activeguess : ${activeGuess}`)
 
   // animation states
   const [failAnimation, setFailAnimation] = useState(false);

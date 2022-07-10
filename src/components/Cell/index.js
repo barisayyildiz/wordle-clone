@@ -9,10 +9,10 @@ import {
   setBoardColors,
   setGuessedLetters,
   selectGame
-} from "../reducers/gameSlice"
+} from "../../reducers/gameSlice"
 
 export default function Cell(props) {
-  const { text } = props;
+  const { text, activeGuess } = props;
 
   const ref = useRef(null);
 
@@ -73,6 +73,7 @@ export default function Cell(props) {
 
     if (event.animationName === "PopIn") {
       props.setInsertAnimation(false);
+      // ref.current.style.border = '5px solid black'
     }
 
     if (event.animationName === "Shake") {
@@ -86,11 +87,16 @@ export default function Cell(props) {
     }
   };
 
+  console.log(`cell, props.cellIndex : ${props.cellIndex}`)
+
   return (
     <div
       ref={ref}
       className={generateClasses()}
       onAnimationEnd={handleAnimationEnd}
+      style={{
+        border:  (props.active && activeGuess.length > props.cellIndex  )  &&  `2px solid #787c7e`
+      }}
     >
       {text}
     </div>

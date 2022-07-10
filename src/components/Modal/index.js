@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import "./style.scss";
 
-import { toggle } from "../reducers/modalSlice"
+import { toggle } from "../../reducers/modalSlice"
 import {
   useDispatch
 } from "react-redux"

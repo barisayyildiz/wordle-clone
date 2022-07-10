@@ -4,7 +4,7 @@ import './style.scss'
 import { useDispatch } from  "react-redux"
 import {
   toggle
-} from "../reducers/modalSlice"
+} from "../../reducers/modalSlice"
 
 
 function Header({	title }) {

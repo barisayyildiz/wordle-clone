@@ -5,7 +5,7 @@ import {
   incrementPlay,
   incrementWin,
   selectStats
-} from "../reducers/statsSlice"
+} from "../../reducers/statsSlice"
 
 
 export default function Bar(props) {

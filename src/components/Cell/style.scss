@@ -1,5 +1,5 @@
 .cell{
-	border: 1px solid #b1b1b1;
+	border: 2px solid #d3d6da;
 	width: 54px;
 	min-height: 54px;
 	margin: 2px;
@@ -9,7 +9,6 @@
 	font-size: 200%;
 	font-weight: 700;
 	user-select: none;
-	transition: all 0.2s ease;
 
 	&.finished{
 		animation : Rotate 600ms ease-out;

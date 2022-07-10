@@ -7,12 +7,14 @@ import {
   setBoardColors,
   setGuessedLetters,
   selectGame
-} from "../reducers/gameSlice"
+} from "../../reducers/gameSlice"
 
 export default function Row(props) {
-  const { value } = props;
+  const { value, activeGuess } = props;
 
   const { boardColors } = useSelector(selectGame)
+
+  console.log(`row, activeguess : ${activeGuess}`)
 
   const style = {
     display: "flex",

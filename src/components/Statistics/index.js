@@ -4,7 +4,7 @@ import './style.scss'
 import { useDispatch, useSelector } from "react-redux"
 import {
 	selectStats  
-} from "../reducers/statsSlice"
+} from "../../reducers/statsSlice"
 
 function Statistics() {
 
