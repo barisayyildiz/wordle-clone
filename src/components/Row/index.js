@@ -1,23 +1,23 @@
 import Cell from "../Cell";
 
-import { useSelector, useDispatch } from "react-redux"
-import { 
+import { useSelector, useDispatch } from "react-redux";
+import {
   setGuessedArray,
   setIsGameOver,
   setBoardColors,
   setGuessedLetters,
-  selectGame
-} from "../../reducers/gameSlice"
+  selectGame,
+} from "../../reducers/gameSlice";
 
 export default function Row(props) {
   const { value, activeGuess } = props;
 
-  const { boardColors } = useSelector(selectGame)
+  const { boardColors } = useSelector(selectGame);
 
   const style = {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   };
 
   return (

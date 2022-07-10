@@ -1,32 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { dayHasChanged } from "../lib/util"
+import { createSlice } from "@reduxjs/toolkit";
+import { dayHasChanged } from "../lib/util";
 
 const initialState = {
-  day: new Date().getDay()
-}
+  day: new Date().getDay(),
+};
 
 const getInitialState = () => {
-  try{
-    if(dayHasChanged()){
-      return initialState
+  try {
+    if (dayHasChanged()) {
+      return initialState;
     }
-    return JSON.parse(JSON.parse(localStorage.getItem('persist:root')).game)
-  }catch(e){
-    return initialState
+    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).game);
+  } catch (e) {
+    return initialState;
   }
-}
+};
 
 export const timeSlice = createSlice({
-  name: 'time',
+  name: "time",
   initialState: getInitialState(),
-  reducers:{
+  reducers: {
     changeDay: (state) => {
-      state.day = new Date().getDay()
-    }
-  }
-})
+      state.day = new Date().getDay();
+    },
+  },
+});
 
-export const { changeDay } = timeSlice.actions
-export const selectTime = (state) => state.time
-export default timeSlice.reducer
-
+export const { changeDay } = timeSlice.actions;
+export const selectTime = (state) => state.time;
+export default timeSlice.reducer;

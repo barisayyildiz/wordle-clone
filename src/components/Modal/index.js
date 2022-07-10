@@ -1,17 +1,15 @@
 import React, { useEffect, useRef } from "react";
 import "./style.scss";
 
-import { toggle } from "../../reducers/modalSlice"
-import {
-  useDispatch
-} from "react-redux"
+import { toggle } from "../../reducers/modalSlice";
+import { useDispatch } from "react-redux";
 
 function Modal(props) {
   const { width, minHeight, title, closeModal } = props;
 
   const ref = useRef(null);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
     document.addEventListener("click", handleClickOutside);
@@ -32,7 +30,7 @@ function Modal(props) {
       className="modal"
       style={{
         width,
-        minHeight
+        minHeight,
       }}
       ref={ref}
     >

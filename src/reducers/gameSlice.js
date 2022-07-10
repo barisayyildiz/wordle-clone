@@ -1,51 +1,50 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { dayHasChanged } from "../lib/util"
+import { createSlice } from "@reduxjs/toolkit";
+import { dayHasChanged } from "../lib/util";
 
 const initialState = {
   isGameOver: false,
-  guessedArray : [],
+  guessedArray: [],
   numberOfGuesses: 0,
-  onNthGuess : null,
+  onNthGuess: null,
   boardColors: [],
-  guessedLetters: []
-}
+  guessedLetters: [],
+};
 
 const getInitialState = () => {
-  try{
-    if(dayHasChanged()){
-      return initialState
+  try {
+    if (dayHasChanged()) {
+      return initialState;
     }
-    return JSON.parse(JSON.parse(localStorage.getItem('persist:root')).game)
-  }catch(e){
-    return initialState
+    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).game);
+  } catch (e) {
+    return initialState;
   }
-}
+};
 
 export const gameSlice = createSlice({
-  name: 'game',
-  initialState : getInitialState(),
-  reducers:{
+  name: "game",
+  initialState: getInitialState(),
+  reducers: {
     setGuessedArray: (state, { payload }) => {
-      state.guessedArray = payload
+      state.guessedArray = payload;
     },
     setIsGameOver: (state, { payload }) => {
-      state.isGameOver = payload
+      state.isGameOver = payload;
     },
     setBoardColors: (state, { payload }) => {
-      state.boardColors = payload
+      state.boardColors = payload;
     },
     setGuessedLetters: (state, { payload }) => {
-      state.guessedLetters = payload
-    }
-  }
-})
+      state.guessedLetters = payload;
+    },
+  },
+});
 
-export const { 
-  setGuessedArray, 
-  setIsGameOver, 
-  setBoardColors, 
-  setGuessedLetters 
-} = gameSlice.actions
-export const selectGame = (state) => state.game
-export default gameSlice.reducer
-
+export const {
+  setGuessedArray,
+  setIsGameOver,
+  setBoardColors,
+  setGuessedLetters,
+} = gameSlice.actions;
+export const selectGame = (state) => state.game;
+export default gameSlice.reducer;

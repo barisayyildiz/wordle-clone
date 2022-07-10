@@ -1,4 +1,4 @@
-.guess-distribution-header{
+.guess-distribution-header {
   text-align: left;
   font-weight: 700;
   text-transform: uppercase;
@@ -6,25 +6,21 @@
   margin: 10px 0px;
 }
 
-.guess-distribution-content-row{
+.guess-distribution-content-row {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   margin: 5px 0px;
 
-  .guess-bar{
+  .guess-bar {
     background-color: #aaaaaa;
     color: white;
     padding: 5px 8px;
     min-width: 20px;
 
-    &.active{
-      background-color: #6AAA64;
+    &.active {
+      background-color: #6aaa64;
     }
-
   }
 }
-
-
-

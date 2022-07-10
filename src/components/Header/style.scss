@@ -1,24 +1,23 @@
-.header{
-	background-color : rgb(240, 240, 240);
-	display: flex;
-	align-items:center;
-	justify-content: space-between;
-	padding: 10px 30px;
+.header {
+  background-color: rgb(240, 240, 240);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 30px;
 
-	.title{
-		font-size: 1.5em;
-		font-weight: 400;
-		user-select: none;
-	}
+  .title {
+    font-size: 1.5em;
+    font-weight: 400;
+    user-select: none;
+  }
 
-	.buttons{
-		display:block;
-	}
-
+  .buttons {
+    display: block;
+  }
 }
 
-#statistics_svg{
-	fill: #4d4d4d;
-	margin: 0px auto;
-	cursor: pointer;
+#statistics_svg {
+  fill: #4d4d4d;
+  margin: 0px auto;
+  cursor: pointer;
 }

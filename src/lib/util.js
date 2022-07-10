@@ -1,20 +1,22 @@
-import { words } from "./constants"
+import { words } from "./constants";
 
-export const inWordList = function(word){
-  const  wordList = words.split("\n")
-  return wordList.includes(word)
-}
+export const inWordList = function (word) {
+  const wordList = words.split("\n");
+  return wordList.includes(word);
+};
 
-export const dayHasChanged = function(){
-  const { day:yesterday } = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).time)
-  const today = new Date().getDay()
-  return today != yesterday
-}
+export const dayHasChanged = function () {
+  const { day: yesterday } = JSON.parse(
+    JSON.parse(localStorage.getItem("persist:root")).time
+  );
+  const today = new Date().getDay();
+  return today != yesterday;
+};
 
-export const selectAWord = function(){
-  const wordsList = words.split("\n")
-  return wordsList[Math.floor(Math.random()*wordsList.length)]
-}
+export const selectAWord = function () {
+  const wordsList = words.split("\n");
+  return wordsList[Math.floor(Math.random() * wordsList.length)];
+};
 
 export const checkWord = function (guess, word) {
   const green = [];

@@ -1,24 +1,21 @@
 import { useState, useMemo, useEffect } from "react";
-import { ToastContainer, Flip, toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css';
-import './style.scss'
+import { ToastContainer, Flip, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./style.scss";
 
 // redux
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
+import { toggle, selectModalStatus } from "../../reducers/modalSlice";
+
+import { selectWord } from "../../reducers/wordSlice";
+
 import {
-  toggle,
-  selectModalStatus
-} from "../../reducers/modalSlice"
-
-import { selectWord } from "../../reducers/wordSlice"
-
-import { 
   setGuessedArray,
   setIsGameOver,
   setBoardColors,
   setGuessedLetters,
-  selectGame
-} from "../../reducers/gameSlice"
+  selectGame,
+} from "../../reducers/gameSlice";
 
 import {
   incrementPlay,
@@ -26,7 +23,7 @@ import {
   updateDistribution,
   setActive,
   selectStats,
-} from "../../reducers/statsSlice"
+} from "../../reducers/statsSlice";
 
 import Board from "../Board";
 import Keyboard from "../Keyboard";
@@ -43,46 +40,40 @@ export default function Game(props) {
   const [insertAnimation, setInsertAnimation] = useState(false);
 
   // redux
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const { selectedWord : WORD } = useSelector(selectWord)
+  const { selectedWord: WORD } = useSelector(selectWord);
   const {
     guessedArray,
     boardColors,
     guessedLetters,
     isGameOver,
     numberOfGuesses,
-    onNthGuess
-  } = useSelector(selectGame)
+    onNthGuess,
+  } = useSelector(selectGame);
 
-  const {
-    played,
-    win,
-    curStreak,
-    maxStreak,
-    distribution,
-    active,
-  } = useSelector(selectStats)
+  const { played, win, curStreak, maxStreak, distribution, active } =
+    useSelector(selectStats);
 
-	const generateToast = (text, duration) => {
-		return toast.dark(text, {
-			position: "top-center",
-			autoClose: duration,
-			hideProgressBar: true,
-			closeOnClick: false,
-			pauseOnHover: true,
-			draggable: true,
-			progress: undefined,
-			closeButton: false,
-			transition: Flip
-			});
-	}
+  const generateToast = (text, duration) => {
+    return toast.dark(text, {
+      position: "top-center",
+      autoClose: duration,
+      hideProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      closeButton: false,
+      transition: Flip,
+    });
+  };
 
   useEffect(() => {
-    if(isGameOver && !guessedArray.includes(WORD)){
-      generateToast(WORD, false)
+    if (isGameOver && !guessedArray.includes(WORD)) {
+      generateToast(WORD, false);
     }
-  }, [])
+  }, []);
 
   useMemo(() => {
     let colors = [];
@@ -90,10 +81,10 @@ export default function Game(props) {
       colors.push(boardColors[i]);
     }
     colors.push(checkWord(activeGuess, WORD));
-    dispatch(setBoardColors(colors))
+    dispatch(setBoardColors(colors));
   }, [activeGuess, WORD]);
 
-	const adjustKeyboardStatus = () => {
+  const adjustKeyboardStatus = () => {
     let tempObj = {};
     let colors = boardColors[boardColors.length - 1];
 
@@ -107,33 +98,33 @@ export default function Game(props) {
         tempObj[activeGuess[i]] = colors[i];
       }
     }
-    dispatch(setGuessedLetters({ ...guessedLetters, ...tempObj }))
+    dispatch(setGuessedLetters({ ...guessedLetters, ...tempObj }));
   };
 
   const handleEnterKey = (event) => {
     if (activeGuess.length !== 5) {
       setFailAnimation(true);
-			generateToast('Yetersiz harf', 1000)
+      generateToast("Yetersiz harf", 1000);
       return;
     }
 
-    if(!inWordList(activeGuess)){
-      setFailAnimation(true)
-      generateToast('Kelime listesinde yok', 1000)
-      return
+    if (!inWordList(activeGuess)) {
+      setFailAnimation(true);
+      generateToast("Kelime listesinde yok", 1000);
+      return;
     }
 
     if (activeGuess === WORD) {
-      const number = distribution[guessedArray.length]
-      dispatch(setIsGameOver(true))
+      const number = distribution[guessedArray.length];
+      dispatch(setIsGameOver(true));
       setSuccessAnimation(true);
-			generateToast('Tebrikler', 2000)
-      dispatch(incrementPlay())
-      dispatch(incrementWin())
-      dispatch(setActive(guessedArray.length + 1))
-			setTimeout(() => {
-        dispatch(toggle())
-			},3000)
+      generateToast("Tebrikler", 2000);
+      dispatch(incrementPlay());
+      dispatch(incrementWin());
+      dispatch(setActive(guessedArray.length + 1));
+      setTimeout(() => {
+        dispatch(toggle());
+      }, 3000);
     }
 
     // keyboard renkleri burada düzenlenecek
@@ -141,14 +132,14 @@ export default function Game(props) {
 
     setFinishedAnimation(true);
 
-    dispatch(setGuessedArray([...guessedArray, activeGuess]))
+    dispatch(setGuessedArray([...guessedArray, activeGuess]));
     setActiveGuess("");
 
-		if([...guessedArray, activeGuess].length === 6){
-			generateToast(WORD, false)
-		}
-		
-		return;
+    if ([...guessedArray, activeGuess].length === 6) {
+      generateToast(WORD, false);
+    }
+
+    return;
   };
 
   const handleLetterKey = (letter) => {
@@ -175,8 +166,8 @@ export default function Game(props) {
   };
 
   const handleKey = (event) => {
-    if(isGameOver){
-      return
+    if (isGameOver) {
+      return;
     }
     if (event.key === "Enter") {
       handleEnterKey(event);
@@ -186,10 +177,10 @@ export default function Game(props) {
   };
 
   const handleButton = (event) => {
-    if(isGameOver){
-      return
+    if (isGameOver) {
+      return;
     }
-    
+
     let btntype = event.target.getAttribute("btntype");
     event.target.blur();
 
@@ -204,21 +195,21 @@ export default function Game(props) {
 
   return (
     <div className="game">
-			<ToastContainer
-				position="top-center"
-				autoClose={1000}
-				hideProgressBar
-				newestOnTop={false}
-				closeOnClick={false}
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-				style={{
-					margin:'30px 0px',
-          width: 'auto'
-				}}
-			/>
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        style={{
+          margin: "30px 0px",
+          width: "auto",
+        }}
+      />
 
       <Board
         activeGuess={activeGuess}

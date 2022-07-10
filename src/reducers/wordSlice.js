@@ -1,34 +1,33 @@
-import { createSlice } from "@reduxjs/toolkit"
-import { dayHasChanged, selectAWord } from "../lib/util"
+import { createSlice } from "@reduxjs/toolkit";
+import { dayHasChanged, selectAWord } from "../lib/util";
 
 const initialState = {
-  selectedWord : selectAWord()
-}
+  selectedWord: selectAWord(),
+};
 
 const getInitialState = () => {
-  try{
-    if(dayHasChanged()){
-      return initialState
+  try {
+    if (dayHasChanged()) {
+      return initialState;
     }
-    return JSON.parse(JSON.parse(localStorage.getItem('persist:root')).word)
-  }catch(e){
-    return initialState
+    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).word);
+  } catch (e) {
+    return initialState;
   }
-}
+};
 
 export const wordSlice = createSlice({
-  name: 'word',
+  name: "word",
   initialState: {
-    selectedWord: selectAWord()
+    selectedWord: selectAWord(),
   },
-  reducers:{
+  reducers: {
     changeSelection: (state) => {
-      state.selectedWord = selectAWord()
-    }
-  }
-})
+      state.selectedWord = selectAWord();
+    },
+  },
+});
 
-export const { changeSelection } = wordSlice.actions
-export const selectWord = (state) => state.word
-export default wordSlice.reducer
-
+export const { changeSelection } = wordSlice.actions;
+export const selectWord = (state) => state.word;
+export default wordSlice.reducer;

@@ -1,12 +1,11 @@
-.statistics-container{
+.statistics-container {
+  .statistic-number {
+    font-size: 150%;
+    color: #599f44;
+    font-weight: 500;
+  }
 
-	.statistic-number{
-		font-size: 150%;
-		color:#599f44;
-		font-weight: 500;
-	}
-	
-	.statistic-label{
-		font-size: 75%;
-	}
+  .statistic-label {
+    font-size: 75%;
+  }
 }

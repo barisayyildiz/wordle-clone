@@ -1,22 +1,22 @@
 import { useRef, useEffect } from "react";
 
-import './style.scss'
+import "./style.scss";
 
-import { useSelector, useDispatch } from "react-redux"
-import { 
+import { useSelector, useDispatch } from "react-redux";
+import {
   setGuessedArray,
   setIsGameOver,
   setBoardColors,
   setGuessedLetters,
-  selectGame
-} from "../../reducers/gameSlice"
+  selectGame,
+} from "../../reducers/gameSlice";
 
 export default function Cell(props) {
   const { text, activeGuess } = props;
 
   const ref = useRef(null);
 
-  const { boardColors, guessedArray, isGameOver } = useSelector(selectGame)
+  const { boardColors, guessedArray, isGameOver } = useSelector(selectGame);
 
   let mappedColors = [];
   if (boardColors[props.rowIndex] !== undefined) {
@@ -32,17 +32,14 @@ export default function Cell(props) {
   }
 
   useEffect(() => {
-    if(props.rowIndex < guessedArray.length){
-      ref.current.style.backgroundColor = mappedColors[props.cellIndex]
-      ref.current.style.color = 'white'
+    if (props.rowIndex < guessedArray.length) {
+      ref.current.style.backgroundColor = mappedColors[props.cellIndex];
+      ref.current.style.color = "white";
     }
-  },[])
+  }, []);
 
   const generateClasses = () => {
-    if (
-      props.rowIndex === guessedArray.length - 1 &&
-      props.finishedAnimation
-    ) {
+    if (props.rowIndex === guessedArray.length - 1 && props.finishedAnimation) {
       // SORUN BURADA!!!
       //ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
       return "cell flipin";
@@ -93,11 +90,13 @@ export default function Cell(props) {
       className={generateClasses()}
       onAnimationEnd={handleAnimationEnd}
       style={{
-        border:  (props.active && activeGuess.length > props.cellIndex  )  &&  `2px solid #787c7e`
+        border:
+          props.active &&
+          activeGuess.length > props.cellIndex &&
+          `2px solid #787c7e`,
       }}
     >
       {text}
     </div>
   );
 }
-

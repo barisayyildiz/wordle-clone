@@ -1,18 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from "react-redux"
-import store from "./reducers"
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { Provider } from "react-redux";
+import store from "./reducers";
 
-import { PersistGate } from 'redux-persist/integration/react';
-import { persistStore } from 'redux-persist';
+import { PersistGate } from "redux-persist/integration/react";
+import { persistStore } from "redux-persist";
 
-import { selectAWord } from "./lib/util"
+import { selectAWord } from "./lib/util";
 
 const initLocalStorage = () => {
-  
   // if(localStorage.getItem('board') === null){
   //   localStorage.setItem('board', JSON.parse({
   //     board: [],
@@ -20,18 +19,18 @@ const initLocalStorage = () => {
   //     onNthGuess: null
   //   }))
   // }
-  
-  if(localStorage.getItem('day') === null){
-    localStorage.setItem('day', new Date().getDay())
+
+  if (localStorage.getItem("day") === null) {
+    localStorage.setItem("day", new Date().getDay());
   }
-  if(localStorage.getItem('selectedWord') === null){
-    localStorage.setItem('selectedWord', selectAWord())
+  if (localStorage.getItem("selectedWord") === null) {
+    localStorage.setItem("selectedWord", selectAWord());
   }
-}
-initLocalStorage()
+};
+initLocalStorage();
 
 let persistor = persistStore(store);
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   // <React.StrictMode>
   <Provider store={store}>

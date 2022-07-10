@@ -7,24 +7,21 @@ import Statistics from "./components/Statistics";
 import Game from "./components/Game";
 import Bar from "./components/Bar";
 
-import { useSelector, useDispatch } from  "react-redux"
-import {
-  toggle,
-  selectModalStatus,
-} from "./reducers/modalSlice"
+import { useSelector, useDispatch } from "react-redux";
+import { toggle, selectModalStatus } from "./reducers/modalSlice";
 
-import { selectWord } from "./reducers/wordSlice"
+import { selectWord } from "./reducers/wordSlice";
 
-function App() {
+function Appz() {
   const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(true);
 
   const { visible } = useSelector(selectModalStatus);
-  const { selectedWord } = useSelector(selectWord)
+  const { selectedWord } = useSelector(selectWord);
   const dispatch = useDispatch();
 
   return (
     <div className="App">
-      <Header title="Wordle Clone"/>
+      <Header title="Wordle Clone" />
       <Game setModalStatus={setStatisticsModalOpen} />
       {visible && (
         <Modal
