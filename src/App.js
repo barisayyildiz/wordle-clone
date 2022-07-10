@@ -12,7 +12,7 @@ import { toggle, selectModalStatus } from "./reducers/modalSlice";
 
 import { selectWord } from "./reducers/wordSlice";
 
-function Appz() {
+function App() {
   const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(true);
 
   const { visible } = useSelector(selectModalStatus);
