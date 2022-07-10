@@ -22,12 +22,10 @@ export const wordSlice = createSlice({
     selectedWord: selectAWord(),
   },
   reducers: {
-    changeSelection: (state) => {
-      state.selectedWord = selectAWord();
-    },
+    resetWord: () => initialState,
   },
 });
 
-export const { changeSelection } = wordSlice.actions;
+export const { resetWord } = wordSlice.actions;
 export const selectWord = (state) => state.word;
 export default wordSlice.reducer;

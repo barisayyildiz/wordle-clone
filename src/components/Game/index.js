@@ -12,6 +12,7 @@ import { selectWord } from "../../reducers/wordSlice";
 import {
   setGuessedArray,
   setIsGameOver,
+  setIsGameWon,
   setBoardColors,
   setGuessedLetters,
   selectGame,
@@ -48,9 +49,12 @@ export default function Game(props) {
     boardColors,
     guessedLetters,
     isGameOver,
+    isGameWon,
     numberOfGuesses,
     onNthGuess,
   } = useSelector(selectGame);
+
+  console.log(`isGameOver : ${isGameOver}`);
 
   const { played, win, curStreak, maxStreak, distribution, active } =
     useSelector(selectStats);
@@ -122,6 +126,7 @@ export default function Game(props) {
       dispatch(incrementPlay());
       dispatch(incrementWin());
       dispatch(setActive(guessedArray.length + 1));
+      dispatch(setIsGameWon(true));
       setTimeout(() => {
         dispatch(toggle());
       }, 3000);
@@ -136,7 +141,9 @@ export default function Game(props) {
     setActiveGuess("");
 
     if ([...guessedArray, activeGuess].length === 6) {
-      generateToast(WORD, false);
+      dispatch(setIsGameOver(true));
+      dispatch(setIsGameWon(false));
+      generateToast(WORD, isGameOver);
     }
 
     return;
@@ -166,6 +173,7 @@ export default function Game(props) {
   };
 
   const handleKey = (event) => {
+    console.log(isGameOver);
     if (isGameOver) {
       return;
     }
@@ -177,6 +185,7 @@ export default function Game(props) {
   };
 
   const handleButton = (event) => {
+    console.log(isGameOver);
     if (isGameOver) {
       return;
     }

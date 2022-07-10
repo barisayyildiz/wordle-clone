@@ -3,6 +3,7 @@ import { dayHasChanged } from "../lib/util";
 
 const initialState = {
   isGameOver: false,
+  isGameWon: false,
   guessedArray: [],
   numberOfGuesses: 0,
   onNthGuess: null,
@@ -31,20 +32,26 @@ export const gameSlice = createSlice({
     setIsGameOver: (state, { payload }) => {
       state.isGameOver = payload;
     },
+    setIsGameWon: (state, { payload }) => {
+      state.isGameWon = payload;
+    },
     setBoardColors: (state, { payload }) => {
       state.boardColors = payload;
     },
     setGuessedLetters: (state, { payload }) => {
       state.guessedLetters = payload;
     },
+    resetGame: () => initialState,
   },
 });
 
 export const {
   setGuessedArray,
   setIsGameOver,
+  setIsGameWon,
   setBoardColors,
   setGuessedLetters,
+  resetGame,
 } = gameSlice.actions;
 export const selectGame = (state) => state.game;
 export default gameSlice.reducer;

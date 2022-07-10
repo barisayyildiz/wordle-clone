@@ -16,7 +16,8 @@ export default function Cell(props) {
 
   const ref = useRef(null);
 
-  const { boardColors, guessedArray, isGameOver } = useSelector(selectGame);
+  const { boardColors, guessedArray, isGameOver, isGameWon } =
+    useSelector(selectGame);
 
   let mappedColors = [];
   if (boardColors[props.rowIndex] !== undefined) {
@@ -78,7 +79,7 @@ export default function Cell(props) {
     }
 
     // DELAY EKLENECEK!!!
-    if (event.animationName === "FlipOut" && isGameOver) {
+    if (event.animationName === "FlipOut" && isGameWon) {
       ref.current.classList.add("bounce");
       ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
     }

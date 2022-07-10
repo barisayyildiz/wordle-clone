@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggle, selectModalStatus } from "./reducers/modalSlice";
 
 import { selectWord } from "./reducers/wordSlice";
+import Restart from "./components/Restart";
 
 function App() {
   const [isStatisticsModalOpen, setStatisticsModalOpen] = useState(true);
@@ -34,6 +35,7 @@ function App() {
           <Bar />
         </Modal>
       )}
+      <Restart></Restart>
     </div>
   );
 }
