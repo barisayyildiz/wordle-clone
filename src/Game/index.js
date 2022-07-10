@@ -31,7 +31,7 @@ import {
 import Board from "../Board";
 import Keyboard from "../Keyboard";
 
-import { checkWord } from "../lib/util";
+import { checkWord, inWordList } from "../lib/util";
 
 export default function Game(props) {
   const [activeGuess, setActiveGuess] = useState("");
@@ -115,6 +115,12 @@ export default function Game(props) {
       setFailAnimation(true);
 			generateToast('Yetersiz harf', 1000)
       return;
+    }
+
+    if(!inWordList(activeGuess)){
+      setFailAnimation(true)
+      generateToast('Kelime listesinde yok', 1000)
+      return
     }
 
     if (activeGuess === WORD) {
@@ -209,9 +215,8 @@ export default function Game(props) {
 				draggable
 				pauseOnHover
 				style={{
-					margin:'100px 0px',
-					fontSize: '120%',
-					width: '200px'
+					margin:'30px 0px',
+          width: 'auto'
 				}}
 			/>
 
