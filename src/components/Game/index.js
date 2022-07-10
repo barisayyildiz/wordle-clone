@@ -54,8 +54,6 @@ export default function Game(props) {
     onNthGuess,
   } = useSelector(selectGame);
 
-  console.log(`isGameOver : ${isGameOver}`);
-
   const { played, win, curStreak, maxStreak, distribution, active } =
     useSelector(selectStats);
 
@@ -173,7 +171,6 @@ export default function Game(props) {
   };
 
   const handleKey = (event) => {
-    console.log(isGameOver);
     if (isGameOver) {
       return;
     }
@@ -185,7 +182,6 @@ export default function Game(props) {
   };
 
   const handleButton = (event) => {
-    console.log(isGameOver);
     if (isGameOver) {
       return;
     }
