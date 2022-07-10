@@ -36,8 +36,6 @@ import { checkWord, inWordList } from "../../lib/util";
 export default function Game(props) {
   const [activeGuess, setActiveGuess] = useState("");
 
-  console.log(`activeguess : ${activeGuess}`)
-
   // animation states
   const [failAnimation, setFailAnimation] = useState(false);
   const [finishedAnimation, setFinishedAnimation] = useState(false);

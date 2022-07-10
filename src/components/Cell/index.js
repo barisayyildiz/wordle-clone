@@ -87,8 +87,6 @@ export default function Cell(props) {
     }
   };
 
-  console.log(`cell, props.cellIndex : ${props.cellIndex}`)
-
   return (
     <div
       ref={ref}

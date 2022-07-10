@@ -14,8 +14,6 @@ export default function Row(props) {
 
   const { boardColors } = useSelector(selectGame)
 
-  console.log(`row, activeguess : ${activeGuess}`)
-
   const style = {
     display: "flex",
     alignItems: "center",
