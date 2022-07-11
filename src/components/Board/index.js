@@ -22,7 +22,6 @@ export default function Board(props) {
 
   return (
     <div className="board">
-      {boardColors[boardColors.length - 1]}
       {Array.from(Array(6).keys()).map((key) => {
         return (
           <Row

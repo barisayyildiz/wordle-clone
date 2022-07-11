@@ -1,31 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { dayHasChanged, selectAWord } from "../lib/util";
 
-const initialState = {
-  selectedWord: selectAWord(),
-};
+// const initialState = {
+//   selectedWord: selectAWord(),
+// };
 
-const getInitialState = () => {
+const getInitialState = (forceChange = false) => {
+  console.log("get initial state");
   try {
-    if (dayHasChanged()) {
-      console.log("day has changed");
-      return initialState;
+    if (dayHasChanged() || forceChange) {
+      return {
+        selectedWord: selectAWord(),
+      };
     }
-    console.log("day has not changed");
     return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).word);
   } catch (e) {
-    console.log("localstorage is empty");
-    return initialState;
+    return {
+      selectedWord: selectAWord(),
+    };
   }
 };
 
 export const wordSlice = createSlice({
   name: "word",
-  initialState: {
-    selectedWord: selectAWord(),
-  },
+  initialState: getInitialState(),
   reducers: {
-    resetWord: () => initialState,
+    resetWord: () => getInitialState(true),
+    // resetWord: (state) => {
+    //   state = getInitialState();
+    // },
   },
 });
 

@@ -15,12 +15,8 @@ export default function Keyboard(props) {
   const thirdRow = ["Z", "C", "V", "B", "N", "M", "Ö", "Ç"];
 
   const generateStatus = (key) => {
-    console.log(guessedLetters);
     return guessedLetters[key] !== undefined ? guessedLetters[key] : "default";
   };
-
-  console.log(boardColors);
-  console.log(guessedLetters);
 
   return (
     <div className="keyboard_container">

@@ -16,7 +16,6 @@ export default function Row(props) {
 
   return (
     <div style={style} className="row">
-      {boardColors[boardColors.length - 1]}
       {Array.from(Array(5).keys()).map((key) => {
         return (
           <Cell
