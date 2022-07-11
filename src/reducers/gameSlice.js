@@ -36,9 +36,11 @@ export const gameSlice = createSlice({
       state.isGameWon = payload;
     },
     setBoardColors: (state, { payload }) => {
+      console.log(payload);
       state.boardColors = payload;
     },
     setGuessedLetters: (state, { payload }) => {
+      console.log(payload);
       state.guessedLetters = payload;
     },
     resetGame: () => initialState,

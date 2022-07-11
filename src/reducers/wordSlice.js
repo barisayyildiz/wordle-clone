@@ -8,10 +8,13 @@ const initialState = {
 const getInitialState = () => {
   try {
     if (dayHasChanged()) {
+      console.log("day has changed");
       return initialState;
     }
+    console.log("day has not changed");
     return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).word);
   } catch (e) {
+    console.log("localstorage is empty");
     return initialState;
   }
 };

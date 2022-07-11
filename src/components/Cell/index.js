@@ -3,13 +3,7 @@ import { useRef, useEffect } from "react";
 import "./style.scss";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setGuessedArray,
-  setIsGameOver,
-  setBoardColors,
-  setGuessedLetters,
-  selectGame,
-} from "../../reducers/gameSlice";
+import { selectGame } from "../../reducers/gameSlice";
 
 export default function Cell(props) {
   const { text, activeGuess } = props;

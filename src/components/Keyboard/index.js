@@ -2,27 +2,25 @@ import Backspace from "../../svgs/Backspace";
 import "./style.scss";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setGuessedArray,
-  setIsGameOver,
-  setBoardColors,
-  setGuessedLetters,
-  selectGame,
-} from "../../reducers/gameSlice";
+import { selectGame } from "../../reducers/gameSlice";
 
 export default function Keyboard(props) {
   // const { guessedLetters, setActiveGuess, handleButton } = props;
   const { setActiveGuess, handleButton } = props;
 
-  const { guessedLetters } = useSelector(selectGame);
+  const { guessedLetters, boardColors } = useSelector(selectGame);
 
   const firstRow = ["E", "R", "T", "Y", "U", "I", "O", "P", "Ğ", "Ü"];
   const secondRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ş", "İ"];
   const thirdRow = ["Z", "C", "V", "B", "N", "M", "Ö", "Ç"];
 
   const generateStatus = (key) => {
+    console.log(guessedLetters);
     return guessedLetters[key] !== undefined ? guessedLetters[key] : "default";
   };
+
+  console.log(boardColors);
+  console.log(guessedLetters);
 
   return (
     <div className="keyboard_container">

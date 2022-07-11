@@ -14,9 +14,11 @@ export const dayHasChanged = function () {
 };
 
 export const selectAWord = function () {
-  const wordsList = words.split("\n");
-  console.log("wqeweq");
-  return wordsList[Math.floor(Math.random() * wordsList.length)];
+  return "KAVUZ";
+  // const wordsList = words.split("\n");
+  // const rand = Math.floor(Math.random() * wordsList.length);
+  // console.log(`rand : ${rand}`);
+  // return wordsList[rand];
 };
 
 export const checkWord = function (guess, word) {

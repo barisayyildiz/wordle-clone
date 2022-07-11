@@ -1,13 +1,7 @@
 import Cell from "../Cell";
 
 import { useSelector, useDispatch } from "react-redux";
-import {
-  setGuessedArray,
-  setIsGameOver,
-  setBoardColors,
-  setGuessedLetters,
-  selectGame,
-} from "../../reducers/gameSlice";
+import { selectGame } from "../../reducers/gameSlice";
 
 export default function Row(props) {
   const { value, activeGuess } = props;
@@ -22,6 +16,7 @@ export default function Row(props) {
 
   return (
     <div style={style} className="row">
+      {boardColors[boardColors.length - 1]}
       {Array.from(Array(5).keys()).map((key) => {
         return (
           <Cell

@@ -82,28 +82,45 @@ export default function Game(props) {
     for (let i = 0; i < guessedArray.length; i++) {
       colors.push(boardColors[i]);
     }
+    console.log(colors);
     colors.push(checkWord(activeGuess, WORD));
+    console.log(colors);
     dispatch(setBoardColors(colors));
   }, [activeGuess, WORD]);
 
   const adjustKeyboardStatus = () => {
     let tempObj = {};
     let colors = boardColors[boardColors.length - 1];
+    console.log(boardColors);
+    console.log(colors);
+    console.log(activeGuess);
+    console.log(guessedLetters);
 
     for (let i = 0; i < colors.length; i++) {
-      if (guessedLetters[activeGuess[i]] === undefined) {
-        tempObj[activeGuess[i]] = colors[i];
+      let letter = activeGuess[i];
+      if (guessedLetters[letter] === undefined) {
+        tempObj[letter] = colors[i];
       } else if (
-        guessedLetters[activeGuess[i]] === "present" &&
+        guessedLetters[letter] === "present" &&
         colors[i] === "correct"
       ) {
-        tempObj[activeGuess[i]] = colors[i];
+        tempObj[letter] = colors[i];
+      } else if (
+        guessedLetters[letter] === "absent" &&
+        (colors[i] === "correct" || colors[i] === "present")
+      ) {
+        tempObj[letter] = colors[i];
       }
     }
+
+    console.log(tempObj);
+    console.log({ ...guessedLetters, ...tempObj });
     dispatch(setGuessedLetters({ ...guessedLetters, ...tempObj }));
   };
 
   const handleEnterKey = (event) => {
+    console.log("pressed enter.........");
+    console.log(boardColors);
     if (activeGuess.length !== 5) {
       setFailAnimation(true);
       generateToast("Yetersiz harf", 1000);
