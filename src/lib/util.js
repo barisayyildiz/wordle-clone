@@ -16,6 +16,7 @@ export const dayHasChanged = function () {
 export const selectAWord = function () {
   // return "KAVUZ";
   const wordsList = words.split("\n");
+  console.log(wordsList);
   const rand = Math.floor(Math.random() * wordsList.length);
   console.log(`rand : ${rand}`);
   console.log(wordsList[rand]);

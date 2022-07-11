@@ -26,9 +26,6 @@ export const wordSlice = createSlice({
   initialState: getInitialState(),
   reducers: {
     resetWord: () => getInitialState(true),
-    // resetWord: (state) => {
-    //   state = getInitialState();
-    // },
   },
 });
 

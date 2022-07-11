@@ -225,8 +225,6 @@ export default function Game(props) {
         }}
       />
 
-      {WORD}
-
       <Board
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}
