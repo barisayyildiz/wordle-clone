@@ -6,7 +6,6 @@ import { dayHasChanged, selectAWord } from "../lib/util";
 // };
 
 const getInitialState = (forceChange = false) => {
-  console.log("get initial state");
   try {
     if (dayHasChanged() || forceChange) {
       return {
