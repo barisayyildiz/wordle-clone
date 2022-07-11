@@ -165,7 +165,7 @@ export default function Game(props) {
   };
 
   const handleLetterKey = (letter) => {
-    const pattern = /[a-z]|[A-Z]|ü|ş|ç|ö|ı/;
+    const pattern = /[a-z]|[A-Z]|ü|ş|ç|ö|ı|ğ|Ü|Ş|Ç|Ö|İ|Ğ/;
 
     // backspace
     if (letter === "Backspace") {
