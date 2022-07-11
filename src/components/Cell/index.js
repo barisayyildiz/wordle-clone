@@ -77,6 +77,10 @@ export default function Cell(props) {
       ref.current.classList.add("bounce");
       ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
     }
+
+    if (event.animationName === "Bounce") {
+      ref.current.style.animationDelay = "0ms";
+    }
   };
 
   return (
