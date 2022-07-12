@@ -10,39 +10,24 @@
   font-weight: 700;
   user-select: none;
 
-  &.finished {
-    animation: Rotate 600ms ease-out;
+  &.flipin {
+    animation: FlipIn 600ms ease-out forwards;
   }
 
-  &.notFound {
+  &.flipout {
+    animation: FlipOut 600ms ease-out forwards;
+  }
+
+  &.popin {
+    animation: PopIn 100ms ease-in;
+  }
+
+  &.shake {
     animation: Shake 600ms ease-in;
   }
 
-  &.continues {
-    animation: PopIn 200ms ease-in;
-  }
-
-  &.success {
+  &.bounce {
     animation: Bounce 600ms ease-in;
-  }
-}
-
-// finished
-@keyframes Rotate {
-  // fade out
-  0% {
-    transform: rotateX(0);
-  }
-  33% {
-    transform: rotateX(-90deg);
-  }
-  // fade in
-  67% {
-    transform: rotateX(-90deg);
-  }
-  100% {
-    transform: rotateX(0);
-    color: white;
   }
 }
 
@@ -104,26 +89,6 @@
     transform: scale(1.1);
     opacity: 1;
   }
-}
-
-.cell.flipin {
-  animation: FlipIn 600ms ease-out forwards;
-}
-
-.cell.flipout {
-  animation: FlipOut 600ms ease-out forwards;
-}
-
-.cell.popin {
-  animation: PopIn 100ms ease-in;
-}
-
-.cell.shake {
-  animation: Shake 600ms ease-in;
-}
-
-.cell.bounce {
-  animation: Bounce 600ms ease-in;
 }
 
 @keyframes FlipIn {

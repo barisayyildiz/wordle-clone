@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { selectGame } from "../../reducers/gameSlice";
 
 export default function Cell(props) {
-  const { text, activeGuess } = props;
+  const { text, activeGuess, finished } = props;
 
   const ref = useRef(null);
 
@@ -27,7 +27,7 @@ export default function Cell(props) {
   }
 
   useEffect(() => {
-    if (props.rowIndex < guessedArray.length) {
+    if (finished) {
       ref.current.style.backgroundColor = mappedColors[props.cellIndex];
       ref.current.style.color = "white";
     }
