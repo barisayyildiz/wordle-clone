@@ -24,7 +24,7 @@ function Statistics() {
       </div>
       <div className="statistics-container">
         <div className="statistic-number">
-          {played !== 0 ? (win / played) * 100 : 0}
+          {played !== 0 ? ((win / played) * 100).toFixed(1) : 0}
         </div>
         <div className="statistic-label">Win %</div>
       </div>

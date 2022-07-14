@@ -24,6 +24,7 @@ import {
   updateDistribution,
   setActive,
   selectStats,
+  handleFail,
 } from "../../reducers/statsSlice";
 
 import Board from "../Board";
@@ -148,6 +149,7 @@ export default function Game(props) {
     if ([...guessedArray, activeGuess].length === 6) {
       dispatch(setIsGameOver(true));
       dispatch(setIsGameWon(false));
+      dispatch(handleFail());
       generateToast(WORD, isGameOver);
     }
 

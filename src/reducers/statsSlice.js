@@ -26,10 +26,15 @@ export const statsSlice = createSlice({
     },
     incrementWin: (state) => {
       state.win = state.win + 1;
+      state.played = state.played + 1;
       state.curStreak = state.curStreak + 1;
       if (state.curStreak + 1 >= state.maxStreak) {
         state.maxStreak = state.curStreak;
       }
+    },
+    handleFail: (state) => {
+      state.played = state.played + 1;
+      state.curStreak = 0;
     },
     updateDistribution: (state, { payload }) => {
       state.distribution = payload;
@@ -46,7 +51,12 @@ export const statsSlice = createSlice({
   },
 });
 
-export const { incrementPlay, incrementWin, updateDistribution, setActive } =
-  statsSlice.actions;
+export const {
+  incrementPlay,
+  incrementWin,
+  updateDistribution,
+  setActive,
+  handleFail,
+} = statsSlice.actions;
 export const selectStats = (state) => state.stats;
 export default statsSlice.reducer;
