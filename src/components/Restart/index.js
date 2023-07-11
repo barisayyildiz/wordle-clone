@@ -3,8 +3,8 @@ import "./style.scss";
 import { toast } from "react-toastify";
 
 import { useDispatch, useSelector } from "react-redux";
-import { resetGame, setIsGameOver, selectGame } from "../../reducers/gameSlice";
-import { resetWord, selectWord } from "../../reducers/wordSlice";
+import { resetGame, selectGame } from "../../reducers/gameSlice";
+import { resetWord } from "../../reducers/wordSlice";
 
 function Restart() {
   const { isGameOver } = useSelector(selectGame);

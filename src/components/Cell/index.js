@@ -36,7 +36,7 @@ export default function Cell(props) {
   const generateClasses = () => {
     if (props.rowIndex === guessedArray.length - 1 && props.finishedAnimation) {
       // SORUN BURADA!!!
-      //ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
+      ref.current.style.animationDelay = `${props.cellIndex * 300}ms`;
       return "cell flipin";
     }
 
@@ -45,12 +45,25 @@ export default function Cell(props) {
       props.insertAnimation &&
       props.cellIndex === props.activeGuess.length - 1
     ) {
+      ref.current.style.animationDelay = "0ms";
       return "cell popin";
     }
 
     if (props.rowIndex === guessedArray.length && props.failAnimation) {
+      ref.current.style.animationDelay = "0ms";
       return "cell shake";
     }
+
+    // // eğer oyun kazanıldıysa
+    // console.log(props.rowIndex + 1, guessedArray.length, props.rowIndex + 1 === guessedArray.length);
+    // if (isGameWon && props.rowIndex + 1 === guessedArray.length) {
+    //   console.log(`---> ${props.rowIndex}, ${guessedArray.length}`);
+    //   console.log("kazanıldı...")
+    //   if(ref.current){
+    //     ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
+    //   }
+    //   return "cell bounce";
+    // }
 
     return "cell";
   };
@@ -61,11 +74,12 @@ export default function Cell(props) {
       ref.current.style.color = "white";
       ref.current.classList.remove("flipin");
       ref.current.classList.add("flipout");
+      ref.current.style.animationDelay = `0ms`;
     }
 
     if (event.animationName === "PopIn") {
       props.setInsertAnimation(false);
-      // ref.current.style.border = '5px solid black'
+      ref.current.style.animationDelay = "0ms";
     }
 
     if (event.animationName === "Shake") {
@@ -75,7 +89,7 @@ export default function Cell(props) {
     // DELAY EKLENECEK!!!
     if (event.animationName === "FlipOut" && isGameWon) {
       ref.current.classList.add("bounce");
-      ref.current.style.animationDelay = `${props.cellIndex * 100}ms`;
+      ref.current.style.animationDelay = `${(4-props.cellIndex) * 300 + 100*props.cellIndex}ms`;
     }
 
     if (event.animationName === "Bounce") {

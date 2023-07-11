@@ -11,11 +11,11 @@
   user-select: none;
 
   &.flipin {
-    animation: FlipIn 600ms ease-out forwards;
+    animation: FlipIn 300ms linear forwards;
   }
 
   &.flipout {
-    animation: FlipOut 600ms ease-out forwards;
+    animation: FlipOut 300ms linear forwards;
   }
 
   &.popin {

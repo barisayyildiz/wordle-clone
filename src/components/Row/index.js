@@ -1,6 +1,6 @@
 import Cell from "../Cell";
 
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectGame } from "../../reducers/gameSlice";
 
 export default function Row(props) {
