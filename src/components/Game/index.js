@@ -148,7 +148,6 @@ export default function Game(props) {
 
     if ([...guessedArray, activeGuess].length === 6) {
       dispatch(setIsGameOver(true));
-      dispatch(setIsGameWon(false));
       dispatch(handleFail());
       generateToast(WORD, isGameOver);
     }
