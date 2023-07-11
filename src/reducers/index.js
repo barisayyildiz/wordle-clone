@@ -6,14 +6,12 @@ import thunk from "redux-thunk";
 
 import modalReducer from "./modalSlice";
 import wordReducer from "./wordSlice";
-import timeReducer from "./timeSlice";
 import gameReducer from "./gameSlice";
 import statsReducer from "./statsSlice";
 
 const reducers = combineReducers({
   modal: modalReducer,
   word: wordReducer,
-  time: timeReducer,
   game: gameReducer,
   stats: statsReducer,
 });

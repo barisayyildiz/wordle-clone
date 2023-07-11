@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dayHasChanged } from "../lib/util";
 
 const initialState = {
   isGameOver: false,
@@ -11,20 +10,9 @@ const initialState = {
   guessedLetters: [],
 };
 
-const getInitialState = () => {
-  try {
-    if (dayHasChanged()) {
-      return initialState;
-    }
-    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).game);
-  } catch (e) {
-    return initialState;
-  }
-};
-
 export const gameSlice = createSlice({
   name: "game",
-  initialState: getInitialState(),
+  initialState,
   reducers: {
     setGuessedArray: (state, { payload }) => {
       state.guessedArray = payload;

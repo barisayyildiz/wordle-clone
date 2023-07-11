@@ -9,17 +9,9 @@ const initialState = {
   active: null,
 };
 
-const getInitialState = () => {
-  try {
-    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).game);
-  } catch (e) {
-    return initialState;
-  }
-};
-
 export const statsSlice = createSlice({
   name: "stats",
-  initialState: getInitialState(),
+  initialState,
   reducers: {
     incrementPlay: (state) => {
       state.played = state.played + 1;

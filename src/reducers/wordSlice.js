@@ -1,30 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { dayHasChanged, selectAWord } from "../lib/util";
+import { selectAWord } from "../lib/util";
 
-// const initialState = {
-//   selectedWord: selectAWord(),
-// };
-
-const getInitialState = (forceChange = false) => {
-  try {
-    if (dayHasChanged() || forceChange) {
-      return {
-        selectedWord: selectAWord(),
-      };
-    }
-    return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).word);
-  } catch (e) {
-    return {
-      selectedWord: selectAWord(),
-    };
-  }
+const initialState = {
+  selectedWord: selectAWord(),
 };
 
 export const wordSlice = createSlice({
   name: "word",
-  initialState: getInitialState(),
+  initialState,
   reducers: {
-    resetWord: () => getInitialState(true),
+    resetWord: () => {
+      return({
+        selectedWord: selectAWord()
+      })
+    },
   },
 });
 

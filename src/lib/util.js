@@ -5,14 +5,6 @@ export const inWordList = function (word) {
   return wordList.includes(word);
 };
 
-export const dayHasChanged = function () {
-  const { day: yesterday } = JSON.parse(
-    JSON.parse(localStorage.getItem("persist:root")).time
-  );
-  const today = new Date().getDay();
-  return today != yesterday;
-};
-
 export const selectAWord = function () {
   // return "KAVUZ";
   const wordsList = words.split("\n");
