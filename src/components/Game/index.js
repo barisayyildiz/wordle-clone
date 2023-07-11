@@ -226,7 +226,6 @@ export default function Game(props) {
           width: "auto",
         }}
       />
-
       <Board
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}

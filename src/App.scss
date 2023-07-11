@@ -1,5 +1,14 @@
+#root{
+  min-height: 97vh;
+  max-height: 97vh;
+}
+
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
 }
 
 .App-logo {
