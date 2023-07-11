@@ -25,6 +25,18 @@ function Modal(props) {
     // closeModal(false)
   };
 
+  const handleClick = () => {
+    ref.current.classList.add("move-out");
+  }
+
+  const handleAnimationEnd = (event) => {
+    console.log("handle animation end")
+    if(event.animationName === 'moveOut'){
+      ref.current.classList.remove("move-out");
+      dispatch(toggle());
+    }
+  }
+
   return (
     <div
       className="modal"
@@ -32,13 +44,14 @@ function Modal(props) {
         width,
         minHeight,
       }}
+      onAnimationEnd={handleAnimationEnd}
       ref={ref}
     >
       <div className="modal_header">
         <h1>{title}</h1>
         <div>
           <svg
-            onClick={() => dispatch(toggle())}
+            onClick={() => handleClick()}
             id="statistic_modal_close"
             xmlns="http://www.w3.org/2000/svg"
             height="20"

@@ -1,11 +1,15 @@
 .modal {
-  padding: 20px 50px;
-  position: absolute;
+  padding: 20px 30px;
+  position: fixed;
   margin: 0px auto;
   left: 0;
   right: 0;
   top: 10%;
-  animation: move 0.4s ease;
+  animation: move 0.3s linear;
+
+  &.move-out {
+    animation: moveOut 0.3s linear;
+  }
 
   border: 1px solid #f6f7f8;
   background-color: #ffffff;
@@ -24,10 +28,21 @@
 
 @keyframes move {
   from {
-    transform: translateY(100%);
+    opacity: 0;
+    transform: translateY(20%);
   }
   to {
     transform: translateY(0%);
+  }
+}
+
+@keyframes moveOut {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(20%);
+    opacity: 0;
   }
 }
 
