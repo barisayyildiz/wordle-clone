@@ -20,7 +20,6 @@ function App() {
       {visible && (
         <Modal
           title="İSTATİSTİK"
-          width="30%"
         >
           <Statistics />
           <Bar />

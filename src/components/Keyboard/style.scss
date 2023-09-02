@@ -37,3 +37,11 @@
   background-color: #787c7e;
   color: white;
 }
+
+@media (max-width: 570px) {
+  .btn {
+    padding: auto;
+    min-width: auto;
+  }
+}
+

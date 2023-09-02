@@ -1,30 +1,15 @@
-import React, { useEffect, useRef, RefObject } from "react";
+import React, { useRef } from "react";
+import { useDispatch } from "react-redux";
+import { useClickOutside } from "../../hooks";
+import { toggle } from "../../reducers/modalSlice";
 import "./style.scss";
 
-import { toggle } from "../../reducers/modalSlice";
-import { useDispatch } from "react-redux";
-
 type ModalProps = {
-  width: string,
   title: string,
   children: JSX.Element | JSX.Element[]
 }
 
-const useClickOutside = (ref: RefObject<HTMLElement>, callback: () => void) => {
-  const handleClick = (e: MouseEvent) => {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
-      callback();
-    }
-  };
-  useEffect(() => {
-    document.addEventListener('click', handleClick);
-    return () => {
-      document.removeEventListener('click', handleClick);
-    };
-  }, []);
-};
-
-function Modal({ width, title, children }: ModalProps) {
+function Modal({ title, children }: ModalProps) {
  
   const ref = useRef<HTMLDivElement>(null);
 
@@ -48,9 +33,6 @@ function Modal({ width, title, children }: ModalProps) {
   return (
     <div
       className="modal"
-      style={{
-        width,
-      }}
       onAnimationEnd={handleAnimationEnd}
       ref={ref}
     >

@@ -4,8 +4,9 @@
   margin: 0px auto;
   left: 0;
   right: 0;
-  top: 20%;
+  top: 15%;
   animation: move 0.15s linear;
+  max-width: 400px;
 
   &.move-out {
     animation: moveOut 0.15s linear;
