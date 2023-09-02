@@ -23,10 +23,7 @@ export const statsSlice = createSlice({
   name: "stats",
   initialState,
   reducers: {
-    incrementPlay: (state) => {
-      state.played = state.played + 1;
-    },
-    incrementWin: (state) => {
+    handleWin: (state) => {
       state.win = state.win + 1;
       state.played = state.played + 1;
       state.curStreak = state.curStreak + 1;
@@ -37,9 +34,6 @@ export const statsSlice = createSlice({
     handleFail: (state) => {
       state.played = state.played + 1;
       state.curStreak = 0;
-    },
-    updateDistribution: (state, { payload }) => {
-      state.distribution = payload;
     },
     setActive: (state, { payload }) => {
       state.active = payload;
@@ -54,9 +48,7 @@ export const statsSlice = createSlice({
 });
 
 export const {
-  incrementPlay,
-  incrementWin,
-  updateDistribution,
+  handleWin,
   setActive,
   handleFail,
 } = statsSlice.actions;

@@ -25,8 +25,7 @@ import {
 } from "../../reducers/animationSlice";
 
 import {
-  incrementPlay,
-  incrementWin,
+  handleWin,
   setActive,
   selectStats,
   handleFail,
@@ -122,8 +121,7 @@ export default function Game() {
       dispatch(setIsGameOver(true));
       dispatch(setSuccessAnimation(true));
       generateToast("Tebrikler", 2000);
-      dispatch(incrementPlay());
-      dispatch(incrementWin());
+      dispatch(handleWin());
       dispatch(setActive(guessedArray.length + 1));
       dispatch(setIsGameWon(true));
       setTimeout(() => {
@@ -143,6 +141,9 @@ export default function Game() {
       dispatch(setIsGameOver(true));
       dispatch(handleFail());
       generateToast(WORD, isGameOver as false);
+      setTimeout(() => {
+        dispatch(toggle());
+      }, 3000);
     }
 
     return;
