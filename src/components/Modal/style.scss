@@ -4,11 +4,11 @@
   margin: 0px auto;
   left: 0;
   right: 0;
-  top: 10%;
-  animation: move 0.3s linear;
+  top: 20%;
+  animation: move 0.15s linear;
 
   &.move-out {
-    animation: moveOut 0.3s linear;
+    animation: moveOut 0.15s linear;
   }
 
   border: 1px solid #f6f7f8;

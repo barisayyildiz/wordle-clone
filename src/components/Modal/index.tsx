@@ -1,38 +1,46 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, RefObject } from "react";
 import "./style.scss";
 
 import { toggle } from "../../reducers/modalSlice";
 import { useDispatch } from "react-redux";
 
-function Modal(props) {
-  const { width, minHeight, title, closeModal } = props;
+type ModalProps = {
+  width: string,
+  title: string,
+  children: JSX.Element | JSX.Element[]
+}
 
-  const ref = useRef(null);
+const useClickOutside = (ref: RefObject<HTMLElement>, callback: () => void) => {
+  const handleClick = (e: MouseEvent) => {
+    if (ref.current && !ref.current.contains(e.target as Node)) {
+      callback();
+    }
+  };
+  useEffect(() => {
+    document.addEventListener('click', handleClick);
+    return () => {
+      document.removeEventListener('click', handleClick);
+    };
+  }, []);
+};
+
+function Modal({ width, title, children }: ModalProps) {
+ 
+  const ref = useRef<HTMLDivElement>(null);
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
-  }, [width]);
-
-  const handleClickOutside = (event) => {
-    if (ref.current) {
-      //console.log(ref.current.contains(event.target));
-    }
-    // closeModal(false)
-  };
-
   const handleClick = () => {
-    ref.current.classList.add("move-out");
+    if(ref.current!.getAnimations().length === 0) {
+      ref.current!.classList.add("move-out");
+    }
   }
 
-  const handleAnimationEnd = (event) => {
-    console.log("handle animation end")
+  useClickOutside(ref, handleClick);
+
+  const handleAnimationEnd = (event: React.AnimationEvent) => {
     if(event.animationName === 'moveOut'){
-      ref.current.classList.remove("move-out");
+      ref.current!.classList.remove("move-out");
       dispatch(toggle());
     }
   }
@@ -42,7 +50,6 @@ function Modal(props) {
       className="modal"
       style={{
         width,
-        minHeight,
       }}
       onAnimationEnd={handleAnimationEnd}
       ref={ref}
@@ -65,7 +72,7 @@ function Modal(props) {
           </svg>
         </div>
       </div>
-      {props.children}
+      {children}
     </div>
   );
 }

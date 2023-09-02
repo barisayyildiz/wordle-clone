@@ -1,19 +1,19 @@
-import { useEffect } from "react";
+import React from 'react';
+import { useEffect, Dispatch, SetStateAction } from "react";
 import Row from "../Row";
-
+import { useSelector } from "react-redux";
+import { selectGame} from "../../reducers/gameSlice";
 import "./style.scss";
 
-import { useSelector, useDispatch } from "react-redux";
-import { selectGame } from "../../reducers/gameSlice";
-
-export default function Board(props) {
+export type BoardProps = {
+  activeGuess: string,
+  setActiveGuess: Dispatch<SetStateAction<string>>,
+  handleKey: (this: Document, ev: KeyboardEvent) => void
+}
+ 
+export default function Board(props: BoardProps) {
   const { activeGuess, handleKey } = props;
-
   const { guessedArray, isGameOver } = useSelector(selectGame);
-
-  const { boardColors } = useSelector(selectGame);
-
-  const gameStates = useSelector(selectGame);
 
   useEffect(() => {
     document.addEventListener("keydown", handleKey);

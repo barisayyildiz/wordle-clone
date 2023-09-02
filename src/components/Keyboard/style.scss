@@ -23,17 +23,17 @@
   padding: 0px;
 }
 
-.btn[status="correct"] {
+.btn[data-status="correct"] {
   background-color: #6aaa64;
   color: white;
 }
 
-.btn[status="present"] {
+.btn[data-status="present"] {
   background-color: #c9b458;
   color: white;
 }
 
-.btn[status="absent"] {
+.btn[data-status="absent"] {
   background-color: #787c7e;
   color: white;
 }

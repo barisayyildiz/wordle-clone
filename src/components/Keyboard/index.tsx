@@ -1,21 +1,25 @@
+import React from 'react';
+import { useSelector } from "react-redux";
 import Backspace from "../../svgs/Backspace";
-import "./style.scss";
-
-import { useSelector, useDispatch } from "react-redux";
 import { selectGame } from "../../reducers/gameSlice";
+import "./style.scss";
+import { TurkishAlphabet, GuessedLetterStatus } from '../../types';
 
-export default function Keyboard(props) {
-  // const { guessedLetters, setActiveGuess, handleButton } = props;
-  const { setActiveGuess, handleButton } = props;
+type KeyboardProps = {
+  activeGuess: string,
+  setActiveGuess: React.Dispatch<React.SetStateAction<string>>
+  handleButton: (event: any) => void
+}
 
+export default function Keyboard({ activeGuess, setActiveGuess, handleButton } : KeyboardProps) {
   const { guessedLetters, boardColors } = useSelector(selectGame);
 
   const firstRow = ["E", "R", "T", "Y", "U", "I", "O", "P", "Ğ", "Ü"];
   const secondRow = ["A", "S", "D", "F", "G", "H", "J", "K", "L", "Ş", "İ"];
   const thirdRow = ["Z", "C", "V", "B", "N", "M", "Ö", "Ç"];
 
-  const generateStatus = (key) => {
-    return guessedLetters[key] !== undefined ? guessedLetters[key] : "default";
+  const generateStatus = (key: TurkishAlphabet): GuessedLetterStatus | "default" => {
+    return guessedLetters[key] || "default";
   };
 
   return (
@@ -24,8 +28,8 @@ export default function Keyboard(props) {
         {firstRow.map((key, index) => {
           return (
             <button
-              btntype={"letter"}
-              status={generateStatus(key)}
+              data-btntype={"letter"}
+              data-status={generateStatus(key as TurkishAlphabet)}
               onClick={(e) => handleButton(e)}
               key={index}
               className="btn"
@@ -39,8 +43,8 @@ export default function Keyboard(props) {
         {secondRow.map((key, index) => {
           return (
             <button
-              btntype={"letter"}
-              status={generateStatus(key)}
+              data-btntype={"letter"}
+              data-status={generateStatus(key as TurkishAlphabet)}
               onClick={(e) => handleButton(e)}
               key={index}
               className="btn"
@@ -52,7 +56,7 @@ export default function Keyboard(props) {
       </div>
       <div className="keyboard_row">
         <button
-          btntype={"enter"}
+          data-btntype={"enter"}
           onClick={(e) => handleButton(e)}
           className="btn btn_enter"
         >
@@ -61,8 +65,8 @@ export default function Keyboard(props) {
         {thirdRow.map((key, index) => {
           return (
             <button
-              btntype={"letter"}
-              status={generateStatus(key)}
+              data-btntype={"letter"}
+              data-status={generateStatus(key as TurkishAlphabet)}
               onClick={(e) => handleButton(e)}
               key={index}
               className="btn"
@@ -72,7 +76,7 @@ export default function Keyboard(props) {
           );
         })}
         <button
-          btntype={"backspace"}
+          data-btntype={"backspace"}
           onClick={() =>
             setActiveGuess((activeGuess) =>
               activeGuess.slice(0, activeGuess.length - 1)

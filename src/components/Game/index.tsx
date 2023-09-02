@@ -1,13 +1,12 @@
+import React from 'react';
 import { useState, useMemo, useEffect } from "react";
 import { ToastContainer, Flip, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./style.scss";
-
-// redux
 import { useDispatch, useSelector } from "react-redux";
-import { toggle, selectModalStatus } from "../../reducers/modalSlice";
-
+import { toggle } from "../../reducers/modalSlice";
 import { selectWord } from "../../reducers/wordSlice";
+import type { TurkishAlphabet } from '../../types';
 
 import {
   setGuessedArray,
@@ -19,9 +18,15 @@ import {
 } from "../../reducers/gameSlice";
 
 import {
+  setFailAnimation,
+  setFinishedAnimation,
+  setSuccessAnimation,
+  setInsertAnimation,
+} from "../../reducers/animationSlice";
+
+import {
   incrementPlay,
   incrementWin,
-  updateDistribution,
   setActive,
   selectStats,
   handleFail,
@@ -31,17 +36,11 @@ import Board from "../Board";
 import Keyboard from "../Keyboard";
 
 import { checkWord, inWordList } from "../../lib/util";
+import { BoardColorsType } from '../../types';
 
-export default function Game(props) {
+export default function Game() {
   const [activeGuess, setActiveGuess] = useState("");
 
-  // animation states
-  const [failAnimation, setFailAnimation] = useState(false);
-  const [finishedAnimation, setFinishedAnimation] = useState(false);
-  const [successAnimation, setSuccessAnimation] = useState(false);
-  const [insertAnimation, setInsertAnimation] = useState(false);
-
-  // redux
   const dispatch = useDispatch();
 
   const { selectedWord: WORD } = useSelector(selectWord);
@@ -51,15 +50,10 @@ export default function Game(props) {
     guessedLetters,
     isGameOver,
     isGameWon,
-    numberOfGuesses,
-    onNthGuess,
   } = useSelector(selectGame);
 
-  const { played, win, curStreak, maxStreak, distribution, active } =
-    useSelector(selectStats);
-
-  const generateToast = (text, duration) => {
-    return toast.dark(text, {
+  const generateToast = (word: string, duration: number | false) => {
+    return toast.dark(word, {
       position: "top-center",
       autoClose: duration,
       hideProgressBar: true,
@@ -79,7 +73,7 @@ export default function Game(props) {
   }, []);
 
   useMemo(() => {
-    let colors = [];
+    let colors: BoardColorsType[] = [];
     for (let i = 0; i < guessedArray.length; i++) {
       colors.push(boardColors[i]);
     }
@@ -88,11 +82,11 @@ export default function Game(props) {
   }, [activeGuess, WORD]);
 
   const adjustKeyboardStatus = () => {
-    let tempObj = {};
+    let tempObj: any = {};
     let colors = boardColors[boardColors.length - 1];
 
     for (let i = 0; i < colors.length; i++) {
-      let letter = activeGuess[i];
+      let letter = activeGuess[i] as TurkishAlphabet;
       if (guessedLetters[letter] === undefined) {
         tempObj[letter] = colors[i];
       } else if (
@@ -111,23 +105,22 @@ export default function Game(props) {
     dispatch(setGuessedLetters({ ...guessedLetters, ...tempObj }));
   };
 
-  const handleEnterKey = (event) => {
+  const handleEnterKey = () => {
     if (activeGuess.length !== 5) {
-      setFailAnimation(true);
+      dispatch(setFailAnimation(true));
       generateToast("Yetersiz harf", 1000);
       return;
     }
 
     if (!inWordList(activeGuess)) {
-      setFailAnimation(true);
+      dispatch(setFailAnimation(true));
       generateToast("Kelime listesinde yok", 1000);
       return;
     }
 
     if (activeGuess === WORD) {
-      const number = distribution[guessedArray.length];
       dispatch(setIsGameOver(true));
-      setSuccessAnimation(true);
+      dispatch(setSuccessAnimation(true));
       generateToast("Tebrikler", 2000);
       dispatch(incrementPlay());
       dispatch(incrementWin());
@@ -141,7 +134,7 @@ export default function Game(props) {
     // keyboard renkleri burada düzenlenecek
     adjustKeyboardStatus();
 
-    setFinishedAnimation(true);
+    dispatch(setFinishedAnimation(true));
 
     dispatch(setGuessedArray([...guessedArray, activeGuess]));
     setActiveGuess("");
@@ -149,13 +142,13 @@ export default function Game(props) {
     if ([...guessedArray, activeGuess].length === 6) {
       dispatch(setIsGameOver(true));
       dispatch(handleFail());
-      generateToast(WORD, isGameOver);
+      generateToast(WORD, isGameOver as false);
     }
 
     return;
   };
 
-  const handleLetterKey = (letter) => {
+  const handleLetterKey = (letter: string) => {
     const pattern = /[a-z]|[A-Z]|ü|ş|ç|ö|ı|ğ|Ü|Ş|Ç|Ö|İ|Ğ/;
 
     // backspace
@@ -173,34 +166,34 @@ export default function Game(props) {
 
     // if the pattern mathces
     if (pattern.test(letter) && letter.length === 1) {
-      setInsertAnimation(true);
+      dispatch(setInsertAnimation(true));
       setActiveGuess(
         (activeGuess) => activeGuess + letter.toLocaleUpperCase("TR")
       );
     }
   };
 
-  const handleKey = (event) => {
+  const handleKey = (event: KeyboardEvent) => {
     if (isGameOver) {
       return;
     }
     if (event.key === "Enter") {
-      handleEnterKey(event);
+      handleEnterKey();
       return;
     }
     handleLetterKey(event.key);
   };
 
-  const handleButton = (event) => {
+  const handleButton = (event: any) => {
     if (isGameOver) {
       return;
     }
 
-    let btntype = event.target.getAttribute("btntype");
+    let btntype = event.target.getAttribute("data-btntype");
     event.target.blur();
 
     if (btntype === "enter") {
-      handleEnterKey(event);
+      handleEnterKey();
     } else if (btntype === "backspace") {
       handleLetterKey("Backspace");
     } else if (btntype === "letter") {
@@ -228,22 +221,11 @@ export default function Game(props) {
       <Board
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}
-        failAnimation={failAnimation}
-        setFailAnimation={setFailAnimation}
-        finishedAnimation={finishedAnimation}
-        setFinishedAnimation={setFinishedAnimation}
-        successAnimation={successAnimation}
-        setSuccessAnimation={setSuccessAnimation}
-        insertAnimation={insertAnimation}
-        setInsertAnimation={setInsertAnimation}
-        handleEnterKey={handleEnterKey}
         handleKey={handleKey}
       />
       <Keyboard
         activeGuess={activeGuess}
         setActiveGuess={setActiveGuess}
-        handleEnterKey={handleEnterKey}
-        handleKey={handleKey}
         handleButton={handleButton}
       />
     </div>

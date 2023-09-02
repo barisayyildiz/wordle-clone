@@ -2,9 +2,13 @@ import React from "react";
 import "./style.scss";
 
 import { useDispatch } from "react-redux";
-import { toggle } from "../../reducers/modalSlice";
+import { toggle, open } from "../../reducers/modalSlice";
 
-function Header({ title }) {
+type HeaderProps = {
+  title: string
+}
+
+function Header({ title }: HeaderProps) {
   const dispatch = useDispatch();
   const toggleStatistics = () => dispatch(toggle());
 
@@ -13,7 +17,7 @@ function Header({ title }) {
       <div className="title">{title}</div>
       <div className="buttons">
         <svg
-          onClick={toggleStatistics}
+          onClick={() => dispatch(open())}
           id="statistics_svg"
           xmlns="http://www.w3.org/2000/svg"
           height="20"

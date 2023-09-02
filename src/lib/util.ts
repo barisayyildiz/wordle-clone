@@ -1,18 +1,18 @@
 import { words } from "./constants";
+import type { BoardColorsType } from "../types";
 
-export const inWordList = function (word) {
+export const inWordList = (word: string): boolean  => {
   const wordList = words.split("\n");
   return wordList.includes(word);
 };
 
-export const selectAWord = function () {
-  // return "KAVUZ";
+export const selectAWord = (): string => {
   const wordsList = words.split("\n");
   const rand = Math.floor(Math.random() * wordsList.length);
   return wordsList[rand];
 };
 
-export const checkWord = function (guess, word) {
+export const checkWord = (guess: string, word: string): BoardColorsType => {
   const result = Array(5).fill(null);
   let temp = "";
   for (let i = 0; i < result.length; i++) {

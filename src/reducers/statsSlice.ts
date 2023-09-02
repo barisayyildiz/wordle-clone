@@ -1,6 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { RootState } from ".";
 
-const initialState = {
+type StatSliceState = {
+  played: number,
+  win: number,
+  curStreak: number,
+  maxStreak: number,
+  distribution: Array<number>,
+  active: any
+}
+
+const initialState: StatSliceState = {
   played: 0,
   win: 0,
   curStreak: 0,
@@ -50,5 +60,5 @@ export const {
   setActive,
   handleFail,
 } = statsSlice.actions;
-export const selectStats = (state) => state.stats;
+export const selectStats = (state: RootState) => state.stats;
 export default statsSlice.reducer;

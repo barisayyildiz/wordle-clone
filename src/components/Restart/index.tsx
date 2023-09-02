@@ -10,15 +10,14 @@ function Restart() {
   const { isGameOver } = useSelector(selectGame);
   const dispatch = useDispatch();
 
-  const clickHandler = (e) => {
-    e.target.blur();
-
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
     dispatch(resetGame());
     dispatch(resetWord());
     toast.dismiss();
     document.querySelectorAll(".cell").forEach((cell) => {
-      cell.style.backgroundColor = "white";
-      cell.style.color = "black";
+      const element = cell as HTMLElement; // Explicitly cast to HTMLElement
+      element.style.backgroundColor = "white";
+      element.style.color = "black";
     });
   };
 

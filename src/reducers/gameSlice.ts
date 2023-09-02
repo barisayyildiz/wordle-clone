@@ -1,13 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { BoardColorsType, GuessedLetters } from "../types";
+import type { RootState } from ".";
 
-const initialState = {
+type GameSliceState = {
+  isGameOver: boolean,
+  isGameWon: boolean,
+  guessedArray: Array<string>,
+  numberOfGuesses: number,
+  onNthGuess: number | null,
+  boardColors: BoardColorsType[],
+  guessedLetters: GuessedLetters
+}
+
+const initialState: GameSliceState = {
   isGameOver: false,
   isGameWon: false,
   guessedArray: [],
   numberOfGuesses: 0,
   onNthGuess: null,
   boardColors: [],
-  guessedLetters: [],
+  guessedLetters: {},
 };
 
 export const gameSlice = createSlice({
@@ -41,5 +53,5 @@ export const {
   setGuessedLetters,
   resetGame,
 } = gameSlice.actions;
-export const selectGame = (state) => state.game;
+export const selectGame = (state: RootState) => state.game;
 export default gameSlice.reducer;

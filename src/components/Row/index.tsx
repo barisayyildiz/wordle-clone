@@ -1,12 +1,17 @@
+import React from "react";
 import Cell from "../Cell";
+import type { BoardProps } from "../Board";
+import { TurkishAlphabet } from "../../types";
 
-import { useSelector } from "react-redux";
-import { selectGame } from "../../reducers/gameSlice";
+export type RowProps = {
+  finished: boolean
+  active: boolean
+  empty: boolean
+  value: string
+  rowIndex: number
+} & BoardProps;
 
-export default function Row(props) {
-  const { value, activeGuess } = props;
-
-  const { boardColors } = useSelector(selectGame);
+export default function Row(props: RowProps) {
 
   const style = {
     display: "flex",
@@ -21,8 +26,7 @@ export default function Row(props) {
           <Cell
             key={key}
             cellIndex={key}
-            rowIndex={props.rowIndex}
-            text={value[key] ? value[key] : ""}
+            text={props.value[key] ? props.value[key] as TurkishAlphabet : ""}
             {...props}
           />
         );

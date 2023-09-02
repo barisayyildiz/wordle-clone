@@ -78,7 +78,7 @@
   }
 }
 
-// continues
+// insertAnimation
 @keyframes PopIn {
   from {
     transform: scale(0.8);
@@ -148,6 +148,7 @@
   }
 }
 
+// failAnimation
 @keyframes Shake {
   10%,
   90% {

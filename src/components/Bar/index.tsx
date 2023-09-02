@@ -1,19 +1,14 @@
+import React, { CSSProperties } from 'react';
 import "./style.scss";
+import { useSelector } from "react-redux";
+import { selectStats } from "../../reducers/statsSlice";
 
-import { useDispatch, useSelector } from "react-redux";
-import {
-  incrementPlay,
-  incrementWin,
-  selectStats,
-} from "../../reducers/statsSlice";
-
-export default function Bar(props) {
-  const { distribution, active, played, win, curStreak, maxStreak } =
-    useSelector(selectStats);
+export default function Bar() {
+  const { distribution, active } = useSelector(selectStats);
 
   const biggest = Math.max(...distribution);
 
-  const generateWidth = (n) => {
+  const generateWidth = (n: number) => {
     return {
       textAlign: n === 0 ? "center" : "right",
       width: `${(n / biggest) * 100}%`,
@@ -29,7 +24,7 @@ export default function Bar(props) {
             <div key={key} className="guess-distribution-content-row">
               <div>{key}</div>
               <div
-                style={generateWidth(distribution[key - 1])}
+                style={generateWidth(distribution[key - 1]) as CSSProperties}
                 className={`guess-bar ${active === key && "active"}`}
               >
                 {distribution[key - 1]}
