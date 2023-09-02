@@ -22,6 +22,7 @@ import {
   setFinishedAnimation,
   setSuccessAnimation,
   setInsertAnimation,
+  selectAnimation,
 } from "../../reducers/animationSlice";
 
 import {
@@ -39,6 +40,8 @@ import { BoardColorsType } from '../../types';
 
 export default function Game() {
   const [activeGuess, setActiveGuess] = useState("");
+
+  const { finishedAnimation } = useSelector(selectAnimation);
 
   const dispatch = useDispatch();
 
@@ -175,7 +178,7 @@ export default function Game() {
   };
 
   const handleKey = (event: KeyboardEvent) => {
-    if (isGameOver) {
+    if (isGameOver || finishedAnimation) {
       return;
     }
     if (event.key === "Enter") {

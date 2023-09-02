@@ -4,21 +4,23 @@ import Row from "../Row";
 import { useSelector } from "react-redux";
 import { selectGame} from "../../reducers/gameSlice";
 import "./style.scss";
+import { selectAnimation } from '../../reducers/animationSlice';
 
 export type BoardProps = {
   activeGuess: string,
   setActiveGuess: Dispatch<SetStateAction<string>>,
-  handleKey: (this: Document, ev: KeyboardEvent) => void
+  handleKey: (ev: KeyboardEvent) => void
 }
  
 export default function Board(props: BoardProps) {
   const { activeGuess, handleKey } = props;
   const { guessedArray, isGameOver } = useSelector(selectGame);
+  const { finishedAnimation } = useSelector(selectAnimation)
 
   useEffect(() => {
     document.addEventListener("keydown", handleKey);
     return () => document.removeEventListener("keydown", handleKey);
-  }, [isGameOver, activeGuess]);
+  }, [isGameOver, activeGuess, finishedAnimation]);
 
   return (
     <div className="board">

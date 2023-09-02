@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { selectGame } from "../../reducers/gameSlice";
 import "./style.scss";
 import { useDispatch } from "react-redux";
-import { selectAnimation } from '../../reducers/animationSlice';
+import { selectAnimation, setFinishedAnimation } from '../../reducers/animationSlice';
 import { setFailAnimation, setInsertAnimation, } from "../../reducers/animationSlice";
 
 import { BoardColorsType, GuessedLetterStatus, TurkishAlphabet } from "../../types";
@@ -101,11 +101,16 @@ export default function Cell(props: CellProps) {
     if (event.animationName === "Shake") {
       dispatch(setFailAnimation(false));
     }
-
-    // DELAY EKLENECEK!!!
-    if (event.animationName === "FlipOut" && isGameWon) {
-      ref.current!.classList.add("bounce");
-      ref.current!.style.animationDelay = `${(4-cellIndex) * 300 + 100*cellIndex}ms`;
+    
+    // TODO: DELAY EKLENECEK!!!
+    if(event.animationName === 'FlipOut') {
+      if(cellIndex === 4) {
+        dispatch(setFinishedAnimation(false));
+      }
+      if(isGameWon) {
+        ref.current!.classList.add("bounce");
+        ref.current!.style.animationDelay = `${(4-cellIndex) * 300 + 100*cellIndex}ms`;
+      }
     }
 
     if (event.animationName === "Bounce") {
